@@ -88,3 +88,11 @@ All content lives in plain data arrays at the top of the `<script>` in `index.ht
 ## Limitations
 
 Self-reported answers, expert-judgement weights (re-check them once you have 50+ responses), only 3–4 items per dimension, and scenario answers people can learn over time. See the Method tab for mitigations.
+
+## Feedback
+
+Report a bug or suggest an improvement via [GitHub Issues](https://github.com/sghatge/ai-readiness-calculator/issues/new/choose). Issues are public, so please don't include personal data.
+
+## License
+
+[MIT](LICENSE) © 2026 Sangram ([@sghatge](https://github.com/sghatge)). Bundled qrcode-generator is also MIT-licensed.

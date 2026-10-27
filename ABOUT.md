@@ -22,7 +22,7 @@
 - **Supported Platforms:** Current desktop and mobile browsers (Chrome, Edge, Safari, Firefox).
 - **System Requirements:** JavaScript enabled; local storage allowed if you want to keep history.
 - **Sign-in / Permissions:** None. No account required.
-- **Cost / Licensing:** Free to use. *[LICENSE: not yet specified in the repository]*
+- **Cost / Licensing:** Free to use. Open source under the [MIT License](LICENSE).
 
 ## Who Can Benefit?
 - **Primary Audience:** Employees in any function who want to understand and improve how they use AI at work.
@@ -44,9 +44,7 @@
 
 ## Support & Resources
 - **Documentation:** [README](README.md) and the **Method** tab in the app
-- **Help Desk / Feedback:** `https://github.com/sghatge/ai-readiness-calculator/issues`
+- **Help Desk / Feedback:** [GitHub Issues](https://github.com/sghatge/ai-readiness-calculator/issues/new/choose): choose *Bug report* or *Feedback*. Issues are public, so don't include personal data.
 - **Source Code:** `https://github.com/sghatge/ai-readiness-calculator`
 - **Version / Last Updated:** 27 October 2026
 
----
-*Remaining placeholders (**[PLACEHOLDER]**) should be replaced before wider distribution.*
