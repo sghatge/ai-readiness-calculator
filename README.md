@@ -9,6 +9,11 @@ A single-page web tool that measures how ready employees are to adopt AI in thei
 | Section | Purpose |
 |---|---|
 | **Assessment** | Profile (anonymous by default) + 31 questions across 10 dimensions (~6 min). Produces a 0–100 score, readiness level, dimension scores, a radar profile, strengths, top 3 barriers, critical-gap flags, a 30-day plan, role-based use cases, suggested training, CSV export and **Save & add to team roster**. |
+| **AI profile** | One of ten score patterns (e.g. *Eager Explorer*, *Blocked Enthusiast*, *Fast Mover, Loose Guardrails*) with a focus area. A conversation starter, not a diagnosis. |
+| **One-page report & share image** | Print-ready report (save as PDF) and a 1200×630 PNG card with score, level, profile and radar. Never includes a name. |
+| **What-if simulator** | Sliders per dimension with locks; projected score and level update live, the governance cap is respected, up to 3 saved scenarios. |
+| **History** | Every completed run is saved in the browser: trend chart, labels, two-run radar overlay with change table, JSON export/import. |
+| **Workshop** | Facilitator view with session name, join QR, paste-in participant codes, team average radar, Low/Mid/High spread per dimension, auto-generated discussion cards (copy, print, CSV) and projector mode. |
 | **Team report** | Manager view combining responses saved in this browser with 20 optional sample employees: average score, level distribution, department comparison, dimension averages, highest-risk gaps, recommended interventions, a 90-day roadmap and a CSV-exportable table. |
 | **Method** | Research sources, weights and rationale, full question bank with option points, Google Sheets formulas, level definitions, rollout plan and limitations. |
 
@@ -39,6 +44,9 @@ A single-page web tool that measures how ready employees are to adopt AI in thei
 
 ## Privacy
 
+- **Workshop codes** (`AIR1-…`) carry only an anonymous ID, department, the 10 dimension scores and flag keys. Participants paste them into the meeting chat; the facilitator pastes them into the Workshop tab. No server is involved.
+- History, scenarios and workshop participants are kept in browser local storage only. Clearing browser data deletes them; export a backup from the History tab.
+
 - Everything runs in the browser. **No answers are ever sent to a server.** Users can download their result as CSV.
 - **Save & add to team roster** stores results in that browser's local storage only (useful on a shared workshop laptop). Clear it from the Team tab.
 - The team report uses **fictional sample data** (IDs E01–E20).
@@ -51,6 +59,10 @@ A single-page web tool that measures how ready employees are to adopt AI in thei
 3. **Settings → Pages → Branch:** `main`, folder `/ (root)` → **Save**.
 4. After about a minute the site is live at the URL above.
 
+## Third-party code
+
+QR codes use [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 by Kazuhiko Arase (MIT), inlined in `index.html`.
+
 ## Customize
 
 All content lives in plain data arrays at the top of the `<script>` in `index.html`:
@@ -60,6 +72,8 @@ All content lives in plain data arrays at the top of the `<script>` in `index.ht
 - `USECASES`: role-based use cases by department
 - `SAMPLE`: team dashboard data (replace with your exported results)
 - `TEAM_FLAGS`: thresholds for team-level risk flags
+- `personaOf()`: profile rules
+- `TALK`: discussion-card questions per dimension
 
 ## Sources
 

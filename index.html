@@ -111,6 +111,28 @@ code{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--tile)
 .badge{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#101828;background:#FDE7D4;padding:6px 12px;border-radius:6px}
 .phase{border-top:4px solid;background:var(--th);border-radius:0 0 10px 10px;padding:16px}
 footer{color:var(--muted);font-size:13px;padding:0 0 40px}
+.dcard{background:#FFF8E1;color:#1F2937;border:1px solid #E8D48A;border-radius:6px;padding:20px;box-shadow:0 2px 0 #E8D48A}
+.dcard ul.clean{color:#1F2937}
+.dcard .mono{color:#7A3A06!important}
+body.projector{font-size:20px}
+body.projector .wrap{max-width:1440px}
+body.projector h1.page{font-size:46px}
+body.projector .card h2{font-size:26px}
+body.projector .kpi .v{font-size:64px}
+body.projector .dcard div[style*="font-size:20px"]{font-size:28px!important}
+body.projector .dcard li{font-size:22px}
+body.projector{--muted:var(--ink2)}
+@media print{
+  @page{size:A4;margin:12mm}
+  :root:not([data-print]){--ground:#fff;--surface:#fff;--ink:#101828;--ink2:#344054;--muted:#475467;--line:#D0D5DD;--line2:#EAECF0;--accent:#1D4ED8;--warn:#C4540A;--warn-tx:#8A3505;--warn-bg:#FEF0E6;--s-gap:#C4540A;--s-mid:#5B82D6;--s-strong:#1E3A8A;--tile:#F3F5F7;--track:#EAECF0}
+  body{background:#fff;font-size:12pt}
+  header.top,footer,.noprint{display:none!important}
+  main{padding:0}
+  .card{break-inside:avoid;border-color:#D0D5DD}
+  .sheet{border:0;padding:0}
+  .sheet svg{max-width:300px!important}
+  .dcard{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 @media (max-width:560px){.hero .big{font-size:64px}h1.page{font-size:26px}.barrow{grid-template-columns:1fr 44px}.barrow .track{grid-column:1/-1;grid-row:2}}
 </style>
 </head>
@@ -121,6 +143,8 @@ footer{color:var(--muted);font-size:13px;padding:0 0 40px}
       <div><div class="eyebrow">AI adoption toolkit</div><div class="brand">AI Readiness Calculator</div></div>
       <nav class="tabs" aria-label="Sections">
         <a href="#assess" data-tab="assess">Assessment</a>
+        <a href="#history" data-tab="history">History</a>
+        <a href="#workshop" data-tab="workshop">Workshop</a>
         <a href="#team" data-tab="team">Team report</a>
         <a href="#method" data-tab="method">Method</a>
       </nav>
@@ -131,6 +155,10 @@ footer{color:var(--muted);font-size:13px;padding:0 0 40px}
 <main class="wrap" id="app" aria-live="polite"></main>
 <footer class="wrap">Responses are scored in your browser and are never sent anywhere. Saved team results stay in this browser only.</footer>
 
+<script>
+/* qrcode-generator 1.4.4 | Copyright (c) 2009 Kazuhiko Arase | MIT License | https://github.com/kazuhikoarase/qrcode-generator */
+var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,(function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1}))},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(n*r,o*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(t,r){var e=n("友");if(2!=e.length||38726!=(e[0]<<8|e[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}((function(){return qrcode}));
+</script>
 <script>
 "use strict";
 /* ---------------- Data ---------------- */
@@ -244,7 +272,9 @@ const TOTAL_Q = DIMS.reduce((a,d)=>a+d.qs.length,0);
 /* ---------------- State ---------------- */
 const newId = () => "R-" + Math.random().toString(36).slice(2,6).toUpperCase();
 const emptyProfile = () => ({anon:true,name:"",dept:"",role:"",seniority:"",freq:"",approval:"",tools:[],tasks:""});
-const S = {tab:"assess", step:0, ans:{}, profile:emptyProfile(), rid:newId(), teamDept:"All", includeSample:true, savedMsg:""};
+const S = {tab:"assess", step:0, ans:{}, profile:emptyProfile(), rid:newId(), teamDept:"All", includeSample:true, savedMsg:"",
+  sub:"result", runId:null, isSample:false, sim:null, locks:{}, simMsg:"", histSel:[], histMsg:"", wsProjector:false, wsMsg:"", codeMsg:"",
+  session:(()=>{ try{ return (new URLSearchParams(location.search).get("session")||"").slice(0,40); }catch(e){ return ""; } })()};
 
 /* ---------------- Roster (saved in this browser only) ---------------- */
 const ROSTER_KEY = "aiReadinessRoster.v1";
@@ -346,7 +376,7 @@ function computeResult(){
   const plan = focus.slice(0,3).map((d,i)=>({week:"WEEK "+(i+1),focus:d.name,action:d.action}));
   plan.push({week:"WEEK 4",focus:"Apply and measure",action:"Use AI on one real task from start to finish, note the time saved and what you checked, and review it with your manager."});
   const who = p.anon ? S.rid : (p.name.trim()||S.rid);
-  return {scores,overall,raw,capped,level,flags,plan,who,strengths:desc.slice(0,3),gaps:asc.slice(0,3)};
+  return {scores,overall,raw,capped,level,flags,plan,who,strengths:desc.slice(0,3),gaps:asc.slice(0,3),persona:personaOf(scores.map(x=>x.score),flags.map(f=>f.key))};
 }
 function radarSvg(scores){
   const N=scores.length, C=170, R=118, pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [C+Math.cos(a)*R*v/100, C+Math.sin(a)*R*v/100];};
@@ -376,6 +406,11 @@ function viewResult(){
     <div><div class="sub" style="font-size:14px;margin-bottom:10px">Readiness scale</div>
       <div class="scale">${LEVELS.map(l=>`<div class="${l===r.level?"cur":""}"><span style="background:${l.color}"></span><small>${l.name}<br>${l.band}</small></div>`).join("")}</div></div>
   </div>
+  ${S.session||S.showCode?`<div class="card" style="border:2px solid var(--accent)"><h2>${S.session?"Workshop: "+esc(S.session):"Your workshop code"}</h2>
+    <p style="margin:0 0 10px;color:var(--ink2)">Copy this code and paste it into the meeting chat. It contains only your anonymous ID (${esc(S.rid)}), your department and your scores, not your name.</p>
+    <textarea readonly rows="2" aria-label="Your workshop code" style="width:100%;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:10px;border:1px solid var(--field);border-radius:8px;background:var(--tile);color:var(--ink);resize:none">${esc(wsCode())}</textarea>
+    <div class="btnrow" style="margin-top:10px"><button class="btn" id="copyCode">Copy code</button>${S.codeMsg?`<span role="status" style="color:var(--accent)">${esc(S.codeMsg)}</span>`:""}</div></div>`:""}
+  ${personaCard(r.persona)}
   ${r.flags.length?`<div class="flags"><h2>Critical gaps to fix first</h2>${r.flags.map(f=>`<p><strong>${f.title}</strong>${f.text}</p>`).join("")}</div>`:""}
   <div class="card"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:14px"><h2 style="margin:0">Scores by area</h2><span style="font-size:13px;color:var(--muted)">Weight = share of your overall score</span></div>
     ${r.scores.map(x=>`<div class="barrow"><div><span style="font-weight:500">${x.d.name}</span><small>${x.d.basis} · weight ${x.d.w}%</small></div><div class="track"><span style="width:${Math.max(2,x.score)}%;background:${tone(x.score)}"></span></div><span class="num">${x.score}</span></div>`).join("")}
@@ -396,6 +431,9 @@ function viewResult(){
     <li>You are accountable for anything you send, publish or decide, whether AI helped or not.</li>
     <li>Say when AI helped produce work if your policy or your audience expects it.</li>
     <li>Keep a person in charge of decisions about people, such as hiring, performance or credit.</li></ul></div>
+  <div class="card"><h2>Take it further</h2><div class="btnrow">
+    <button class="btn" id="report">One-page report (PDF)</button><button class="btn ghost" id="share">Download share image</button><button class="btn ghost" id="sim">Simulate improvements</button>${S.session?"":`<button class="btn ghost" id="showCode">Get workshop code</button>`}</div>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">${S.isSample?"Sample answers are not saved to your history.":`Saved to your <a href="#history">history</a> in this browser.`} The share image shows your score and profile, never your name.</p></div>
   <div class="btnrow"><button class="btn" id="save">Save &amp; add to team roster</button><button class="btn ghost" id="dl">Download my result (CSV)</button><button class="btn ghost" id="review">Review answers</button><button class="btn ghost" id="restart">Start over</button></div>
   ${S.savedMsg?`<p role="status" style="margin:0;color:var(--accent);font-weight:500">${esc(S.savedMsg)} <a href="#team">Open team report</a></p>`:""}
   <p style="margin:0;font-size:13px;color:var(--muted)">The roster is kept in this browser only. Use it to collect results on one shared device, such as a workshop laptop, or export it as CSV.</p>
@@ -552,8 +590,295 @@ function viewMethod(){
     <li><strong>Scenario answers can be learned</strong>: rotate equivalent scenarios each quarter.</li>
     <li><strong>Small-team anonymity</strong>: enforce the n of 5 or more rule in all team views.</li>
     <li><strong>Intention, not behaviour</strong>: add tool-usage data and time-saved measures.</li></ul></div>
+  <div class="card"><h2>8 · Profiles, history, simulator and workshop</h2><ul class="clean">
+    <li><strong>AI profile</strong>: one of ten patterns picked by fixed rules over the dimension scores, for example high attitude with low skills gives “Eager Explorer”. It is a conversation starter, not a diagnosis.</li>
+    <li><strong>What-if simulator</strong>: re-runs the same weighted formula on adjusted scores. The governance cap stays on until Data privacy and responsible AI is raised above its current score and at least 50.</li>
+    <li><strong>History</strong>: completed runs are saved in the browser's local storage (up to 50). Export a JSON backup; clearing browser data deletes it.</li>
+    <li><strong>Workshop codes</strong>: each code holds an anonymous ID, department, the 10 dimension scores and flag keys. No name, role or answers. Nothing is sent to a server; the facilitator pastes codes in, and results stay in that browser.</li>
+    <li><strong>Small groups</strong>: the workshop view warns when fewer than 5 people have joined, because individuals may be identifiable.</li></ul></div>
   </section>`;
 }
+
+/* ---------------- Local storage (this browser only) ---------------- */
+const HIST_KEY="aiReadinessHistory.v1", SCEN_KEY="aiReadinessScenarios.v1", WS_KEY="aiReadinessWorkshop.v1";
+const lsGet=(k,d)=>{ try{ const v=JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } };
+const lsSet=(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return false; } };
+const validDims = a => Array.isArray(a) && a.length===DIMS.length && a.every(n=>typeof n==="number" && n>=0 && n<=100);
+let HIST = lsGet(HIST_KEY,[]); if(!Array.isArray(HIST)) HIST=[]; HIST=HIST.filter(h=>h&&validDims(h.dims));
+let SCEN = lsGet(SCEN_KEY,[]); if(!Array.isArray(SCEN)) SCEN=[]; SCEN=SCEN.filter(x=>x&&validDims(x.sim));
+let WS = lsGet(WS_KEY,{session:"",participants:[]}); if(!WS||!Array.isArray(WS.participants)) WS={session:"",participants:[]}; WS.participants=WS.participants.filter(x=>x&&validDims(x.dims));
+const dimIdx = id => DIMS.findIndex(d=>d.id===id);
+const overallOf = (dims, flags) => { const raw=Math.round(dims.reduce((a,v,i)=>a+v*DIMS[i].w,0)/100); return (flags||[]).includes("pr") ? Math.min(raw,GOV_CAP) : raw; };
+const fmtDate = iso => { try{ return new Date(iso).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }catch(e){ return iso; } };
+
+/* ---------------- Persona ---------------- */
+function personaOf(dims, flags){
+  const v=id=>dims[dimIdx(id)];
+  const cap=avgOf([v("sk"),v("pv"),v("ap")]);
+  const overall=Math.round(dims.reduce((a,x,i)=>a+x*DIMS[i].w,0)/100);
+  const spread=Math.max(...dims)-Math.min(...dims);
+  const lowest=DIMS[dims.indexOf(Math.min(...dims))].id;
+  const P=(name,tagline,desc,focus)=>({name,tagline,desc,focus,focusName:DIMS[dimIdx(focus)].name});
+  if(((flags||[]).includes("pr")||v("pr")<50) && cap>=65) return P("Fast Mover, Loose Guardrails","Gets real value from AI, but data handling needs tightening first.","You already get real value from AI. The risk is that personal or confidential data reaches tools that are not approved for it. Fixing this protects you and lifts the cap on your score.","pr");
+  if(overall>=85 && Math.min(...dims)>=60) return P("Multiplier","Skilled, safe, and ready to bring others along.","You use AI skilfully and safely across the board. Your biggest contribution now is helping colleagues: share prompts, run demos and act as a go-to person.","ln");
+  if(v("ac")<45 && v("at")>=60) return P("Blocked Enthusiast","Keen to use AI, held back by access or support.","You want to use AI, but tool access or support is holding you back. Solving access is the fastest way to turn motivation into results.","ac");
+  if(v("at")>=75 && cap<55) return P("Eager Explorer","High motivation, with skills still catching up.","Your motivation is high, but hands-on skills have not caught up yet. Structured practice on real tasks will turn enthusiasm into results quickly.","sk");
+  if(cap>=65 && v("cf")<50) return P("Power User, Check the Brakes","Uses AI heavily; keep your own judgement in charge.","You use AI a lot and get results. Make sure your own judgement stays in charge: check outputs and keep core skills sharp.","cf");
+  if(cap>=70 && v("at")<55) return P("Sceptical Expert","Capable with AI, unconvinced it is worth it.","You can use AI well but are not convinced it pays off in your work. Finding one or two high-value use cases in your role may change that.","rf");
+  if(v("pr")>=75 && cap<55) return P("Careful Starter","Knows the rules, rarely uses AI on real work.","You know the rules and handle data carefully, but rarely apply AI to real work. Pick one low-risk deliverable and try it end to end.","ap");
+  if(overall<40) return P("Getting Started","Early in the journey, foundations still to build.","You are early in the AI journey. Start with the basics: what the tools can do, which ones are approved, and one simple task to try.","aw");
+  if(spread<=25 && overall>=50 && overall<75) return P("Steady Builder","Balanced across the board, ready to go deeper.","Your scores are balanced with no major gaps. The next step is depth: make AI a routine part of a few key tasks.","ap");
+  return P("Developing Practitioner","Clear strengths, with a few gaps to close.","You have clear strengths and a few gaps. Focus on the area below to make the biggest difference.",lowest);
+}
+function personaCard(pe){
+  return `<div class="card"><div class="eyebrow" style="color:var(--accent)">Your AI profile</div>
+    <div style="font-size:24px;font-weight:600;margin-top:4px">${esc(pe.name)}</div>
+    <p style="margin:4px 0 10px;color:var(--muted);font-size:17px">${esc(pe.tagline)}</p>
+    <p style="margin:0 0 10px;color:var(--ink2)">${esc(pe.desc)}</p>
+    <div style="font-weight:500">Focus next: ${esc(pe.focusName)}</div>
+    <small style="color:var(--muted)">A pattern based on your scores, not a diagnosis.</small></div>`;
+}
+
+/* ---------------- Radar with overlays ---------------- */
+function radarMulti(series, title){
+  const N=DIMS.length, C=170, R=118, pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [C+Math.cos(a)*R*v/100, C+Math.sin(a)*R*v/100];};
+  const ring=v=>DIMS.map((_,i)=>pt(i,v).join(",")).join(" ");
+  const one = series.length===1;
+  const label=(d,i)=>{const a=-Math.PI/2+i*2*Math.PI/N; const lx=C+Math.cos(a)*(R+22), ly=C+Math.sin(a)*(R+22); const anc=Math.abs(Math.cos(a))<0.2?"middle":(Math.cos(a)>0?"start":"end");
+    return `<text x="${lx.toFixed(1)}" y="${(ly+4).toFixed(1)}" text-anchor="${anc}" font-size="11" fill="var(--muted)">${d.short}${one?" "+series[0].vals[i]:""}</text>`;};
+  const desc=series.map(s=>`${s.label}: `+DIMS.map((d,i)=>`${d.name} ${s.vals[i]}`).join(", ")).join(". ");
+  return `<svg viewBox="-80 0 500 340" role="img" aria-label="${esc(title)}. ${esc(desc)}" style="width:100%;max-width:540px;display:block;margin:0 auto">
+    ${[25,50,75,100].map(v=>`<polygon points="${ring(v)}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join("")}
+    ${DIMS.map((_,i)=>{const p=pt(i,100); return `<line x1="${C}" y1="${C}" x2="${p[0]}" y2="${p[1]}" stroke="var(--line)" stroke-width="1"/>`;}).join("")}
+    ${series.map(s=>`<polygon points="${s.vals.map((v,i)=>pt(i,v).join(",")).join(" ")}" fill="${s.color}" fill-opacity="${s.fill==null?0.15:s.fill}" stroke="${s.color}" stroke-width="2" ${s.dash?'stroke-dasharray="6 4"':""}/>`).join("")}
+    ${series.map(s=>s.vals.map((v,i)=>{const p=pt(i,v); return `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${s.color}"/>`;}).join("")).join("")}
+    ${DIMS.map(label).join("")}
+  </svg>`;
+}
+function seriesLegend(series){ return `<div class="legendrow" style="justify-content:center;margin-top:6px">${series.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.label)}${s.dash?" (dashed)":""}</span>`).join("")}</div>`; }
+
+/* ---------------- History ---------------- */
+function recordHistory(){
+  if(S.isSample) return;
+  const r=computeResult();
+  const rec={id:S.runId||("H"+Date.now().toString(36)), ts:new Date().toISOString(), label:"", rid:S.rid, dept:S.profile.dept, dims:r.scores.map(x=>x.score), flags:r.flags.map(f=>f.key), raw:r.raw, overall:r.overall, level:r.level.name, persona:r.persona.name};
+  const old=HIST.find(h=>h.id===rec.id); if(old){ rec.label=old.label; rec.ts=old.ts; }
+  HIST=HIST.filter(h=>h.id!==rec.id).concat([rec]).sort((a,b)=>a.ts<b.ts?-1:1).slice(-50);
+  S.runId=rec.id; lsSet(HIST_KEY,HIST);
+}
+function trendSvg(){
+  const pts=HIST, W=640, H=220, L=40, Rm=16, T=16, B=34, n=pts.length;
+  const x=i=> n===1 ? L+(W-L-Rm)/2 : L+i*(W-L-Rm)/(n-1), y=v=>T+(100-v)*(H-T-B)/100;
+  const bands=[40,60,75,90].map(v=>`<line x1="${L}" x2="${W-Rm}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line2)"/><text x="${L-6}" y="${y(v)+4}" font-size="11" text-anchor="end" fill="var(--muted)">${v}</text>`).join("");
+  const line = n>1 ? `<polyline points="${pts.map((h,i)=>x(i)+","+y(h.overall)).join(" ")}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>` : "";
+  const dots = pts.map((h,i)=>`<circle cx="${x(i)}" cy="${y(h.overall)}" r="4.5" fill="var(--accent)"/><text x="${x(i)}" y="${y(h.overall)-10}" font-size="12" font-weight="600" text-anchor="middle" fill="var(--ink)">${h.overall}</text><text x="${x(i)}" y="${H-12}" font-size="11" text-anchor="middle" fill="var(--muted)">${esc(fmtDate(h.ts))}</text>`).join("");
+  const desc = pts.map(h=>`${fmtDate(h.ts)}: ${h.overall}`).join(", ");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Overall score over time. ${esc(desc)}" style="width:100%;max-width:${W}px;display:block">${bands}<line x1="${L}" x2="${W-Rm}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/>${line}${dots}</svg>`;
+}
+function viewHistory(){
+  const n=HIST.length;
+  const io = `<div class="btnrow"><button class="btn ghost" id="histExport" ${n?"":"disabled"}>Export history (JSON)</button><label class="btn ghost" for="histImport" style="cursor:pointer">Import history</label><input type="file" id="histImport" accept="application/json,.json" style="position:absolute;left:-9999px">${n?`<button class="btn ghost" id="histClear">Delete all history</button>`:""}</div>`;
+  if(!n) return `<section class="stack"><div class="stack" style="gap:8px"><h1 class="page">Your history</h1><p class="lead">Every completed assessment is saved in this browser so you can track progress over time.</p></div><div class="card"><p style="margin:0">No saved assessments yet. Complete the assessment to start your history, or import a backup.</p></div>${io}${S.histMsg?`<p role="status" style="margin:0;color:var(--accent)">${esc(S.histMsg)}</p>`:""}</section>`;
+  const sel=S.histSel.filter(id=>HIST.some(h=>h.id===id));
+  let compare="";
+  if(sel.length===2){
+    const [a,b]=sel.map(id=>HIST.find(h=>h.id===id)).sort((p,q)=>p.ts<q.ts?-1:1);
+    const sa={vals:a.dims,color:"var(--s-gap)",label:`${fmtDate(a.ts)}${a.label?" · "+a.label:""}`,dash:true,fill:0.08}, sb={vals:b.dims,color:"var(--accent)",label:`${fmtDate(b.ts)}${b.label?" · "+b.label:""}`};
+    compare=`<div class="card"><h2>Comparison</h2>${radarMulti([sa,sb],"Comparison of two assessments")}${seriesLegend([sa,sb])}
+      <div class="tbl" style="margin-top:16px"><table><thead><tr><th>Dimension</th><th>${esc(fmtDate(a.ts))}</th><th>${esc(fmtDate(b.ts))}</th><th>Change</th></tr></thead><tbody>
+      ${DIMS.map((d,i)=>{const dl=b.dims[i]-a.dims[i]; return `<tr><td>${d.name}</td><td class="mono">${a.dims[i]}</td><td class="mono">${b.dims[i]}</td><td class="mono" style="font-weight:600;color:${dl>0?"var(--accent)":(dl<0?"var(--warn)":"var(--muted)")}">${dl>0?"▲ +"+dl:(dl<0?"▼ "+dl:"–")}</td></tr>`;}).join("")}
+      <tr><td style="font-weight:600">Overall</td><td class="mono">${a.overall}</td><td class="mono">${b.overall}</td><td class="mono" style="font-weight:600">${b.overall-a.overall>0?"▲ +":(b.overall-a.overall<0?"▼ ":"")}${b.overall-a.overall||"–"}</td></tr>
+      </tbody></table></div></div>`;
+  }
+  return `<section class="stack">
+  <div class="stack" style="gap:8px"><h1 class="page">Your history</h1><p class="lead">Every completed assessment is saved in this browser. Clearing browser data deletes it, so export a backup now and then.</p></div>
+  <div class="card"><h2>Overall score over time</h2>${n>1?trendSvg():`<p style="margin:0;color:var(--muted)">Complete another assessment later to see your trend.</p>${trendSvg()}`}</div>
+  <div class="card"><h2>Saved assessments</h2><p style="margin:0 0 12px;color:var(--muted);font-size:14px">Tick two rows to compare them. Add a label such as “Q3 baseline”.</p>
+    <div class="tbl"><table><thead><tr><th>Compare</th><th>Date</th><th>Label</th><th>Score</th><th>Level</th><th>Profile</th><th></th></tr></thead><tbody>
+    ${HIST.slice().reverse().map(h=>`<tr><td><input type="checkbox" data-hsel="${esc(h.id)}" ${sel.includes(h.id)?"checked":""} ${!sel.includes(h.id)&&sel.length>=2?"disabled":""} aria-label="Compare assessment from ${esc(fmtDate(h.ts))}" style="width:20px;height:20px"></td>
+      <td style="white-space:nowrap">${esc(fmtDate(h.ts))}</td>
+      <td><input data-hlabel="${esc(h.id)}" value="${esc(h.label)}" maxlength="40" placeholder="Add label" aria-label="Label for assessment from ${esc(fmtDate(h.ts))}" style="min-height:40px;padding:6px 10px;border:1px solid var(--field);border-radius:8px;background:var(--surface);color:var(--ink);width:160px"></td>
+      <td class="mono" style="font-weight:600">${h.overall}</td><td style="white-space:nowrap">${esc(h.level)}</td><td style="white-space:nowrap">${esc(h.persona||"")}</td>
+      <td><button class="btn ghost" data-hdel="${esc(h.id)}" style="min-height:40px;padding:6px 12px" aria-label="Delete assessment from ${esc(fmtDate(h.ts))}">Delete</button></td></tr>`).join("")}
+    </tbody></table></div></div>
+  ${compare}
+  ${io}
+  ${S.histMsg?`<p role="status" style="margin:0;color:var(--accent)">${esc(S.histMsg)}</p>`:""}
+  </section>`;
+}
+function importHistory(file){
+  const rd=new FileReader();
+  rd.onload=()=>{ try{ const data=JSON.parse(rd.result); const list=(Array.isArray(data)?data:data.history||[]).filter(h=>h&&validDims(h.dims)&&typeof h.ts==="string").map(h=>({id:String(h.id||("H"+Math.random().toString(36).slice(2,8))).slice(0,24),ts:h.ts,label:String(h.label||"").slice(0,40),rid:String(h.rid||"").slice(0,24),dept:String(h.dept||"").slice(0,40),dims:h.dims.map(Math.round),flags:Array.isArray(h.flags)?h.flags.filter(k=>["pr","ac","pv","cf"].includes(k)):[],overall:overallOf(h.dims,h.flags),level:levelOf(overallOf(h.dims,h.flags)).name,persona:personaOf(h.dims,h.flags).name}));
+      const ids=new Set(list.map(h=>h.id)); HIST=HIST.filter(h=>!ids.has(h.id)).concat(list).sort((a,b)=>a.ts<b.ts?-1:1).slice(-50); lsSet(HIST_KEY,HIST);
+      S.histMsg=`Imported ${list.length} assessment${list.length===1?"":"s"}.`; }catch(e){ S.histMsg="That file is not a valid history export."; } render(); };
+  rd.readAsText(file);
+}
+
+/* ---------------- What-if simulator ---------------- */
+function simProjection(){
+  const r=computeResult(), real=r.scores.map(x=>x.score), sim=S.sim, pi=dimIdx("pr");
+  const raw=Math.round(sim.reduce((a,v,i)=>a+v*DIMS[i].w,0)/100);
+  const capOn = sim[pi]<50 || (r.flags.some(f=>f.key==="pr") && sim[pi]<=real[pi]);
+  const overall = capOn ? Math.min(raw,GOV_CAP) : raw;
+  return {r, real, raw, overall, capOn, level:levelOf(overall)};
+}
+function simOutHtml(){
+  const pj=simProjection(), d=pj.overall-pj.r.overall;
+  const sa={vals:pj.real,color:"var(--muted)",label:"Current",dash:true,fill:0.05}, sb={vals:S.sim,color:"var(--accent)",label:"Simulated"};
+  return `<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span class="mono" style="font-size:64px;font-weight:600;line-height:1;color:${tone(pj.overall)}">${pj.overall}</span><span class="mono" style="font-size:18px;color:var(--muted)">/ 100</span><span class="mono" style="font-weight:600;color:${d>0?"var(--accent)":(d<0?"var(--warn)":"var(--muted)")}">${d>0?"▲ +"+d:(d<0?"▼ "+d:"no change")} vs current ${pj.r.overall}</span></div>
+    <div style="font-size:20px;font-weight:600;margin:6px 0">${pj.level.name}</div>
+    ${pj.capOn&&pj.raw>GOV_CAP?`<div class="flags" style="padding:12px 14px;margin:8px 0"><p style="margin:0"><strong>Capped at ${GOV_CAP}</strong>Without the cap this scenario would score ${pj.raw}. Raise Data privacy and responsible AI to lift it.</p></div>`:""}
+    ${radarMulti([sa,sb],"Current versus simulated scores")}${seriesLegend([sa,sb])}`;
+}
+function viewSim(){
+  const r=computeResult(), real=r.scores.map(x=>x.score);
+  const mine=SCEN.filter(x=>x.rid===S.rid);
+  return `<section class="stack">
+  <div class="stack" style="gap:8px"><h1 class="page">What-if simulator</h1><p class="lead">Move a slider to see how improving that area would change your overall score and level. Lock the areas you don't expect to change.</p></div>
+  <div class="grid wide" style="align-items:start">
+    <div class="card" id="simOut" aria-live="polite">${simOutHtml()}</div>
+    <div class="card"><h2>Adjust areas</h2>
+    ${DIMS.map((d,i)=>{const lk=!!S.locks[i]; return `<div style="border-bottom:1px solid var(--line2);padding:10px 0">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><label for="sim-${i}" style="font-weight:500">${d.name} <small style="color:var(--muted);font-weight:400">· weight ${d.w}%</small></label>
+      <span style="display:flex;align-items:center;gap:10px"><span class="mono" style="font-size:13px;color:var(--muted)">now ${real[i]}</span><span class="mono" id="simv-${i}" style="font-weight:600;min-width:28px;text-align:right">${S.sim[i]}</span>
+      <label style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--muted)"><input type="checkbox" data-lock="${i}" ${lk?"checked":""} style="width:18px;height:18px"> Lock</label></span></div>
+      <input type="range" id="sim-${i}" data-sim="${i}" min="0" max="100" step="5" value="${S.sim[i]}" ${lk?"disabled":""} style="width:100%;accent-color:var(--accent);min-height:32px">
+      <small style="color:var(--muted)">To raise it: ${esc(d.training)}</small></div>`;}).join("")}
+    </div>
+  </div>
+  <div class="btnrow"><button class="btn" id="simSave">Save scenario</button><button class="btn ghost" id="simReset">Reset to current scores</button><button class="btn ghost" id="toResult">Back to results</button></div>
+  ${S.simMsg?`<p role="status" style="margin:0;color:var(--accent)">${esc(S.simMsg)}</p>`:""}
+  ${mine.length?`<div class="card"><h2>Saved scenarios</h2><div class="grid" style="gap:14px">${mine.map(x=>{const ch=x.sim.map((v,i)=>({d:DIMS[i],dl:v-real[i]})).filter(c=>c.dl!==0); return `<div class="tile"><span class="tag">${esc(x.name)}</span><strong>${x.overall} · ${esc(levelOf(x.overall).name)}</strong><p>${ch.length?ch.map(c=>`${c.d.short} ${c.dl>0?"+":""}${c.dl}`).join(", "):"No changes"}</p><div class="btnrow" style="margin-top:10px"><button class="btn ghost" data-scen-load="${esc(x.id)}" style="min-height:40px;padding:6px 12px">Load</button><button class="btn ghost" data-scen-del="${esc(x.id)}" style="min-height:40px;padding:6px 12px">Delete</button></div></div>`;}).join("")}</div></div>`:""}
+  </section>`;
+}
+
+/* ---------------- One-page report and share image ---------------- */
+function viewReport(){
+  const p=S.profile, r=computeResult(), pe=r.persona;
+  return `<section class="stack">
+  <div class="btnrow noprint"><button class="btn" id="print">Print or save as PDF</button><button class="btn ghost" id="share">Download share image</button><button class="btn ghost" id="toResult">Back to results</button></div>
+  <article class="card sheet">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:18px">
+      <div><div class="eyebrow" style="color:var(--accent)">AI readiness report</div><div style="font-size:22px;font-weight:600">${esc(r.who)}${p.dept?" · "+esc(p.dept):""}</div></div>
+      <div class="mono" style="font-size:13px;color:var(--muted);text-align:right">${esc(fmtDate(new Date().toISOString()))}<br>${esc(p.role||"")}</div></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:center">
+      <div><div style="display:flex;align-items:baseline;gap:8px"><span class="mono" style="font-size:72px;font-weight:600;line-height:1">${r.overall}</span><span class="mono" style="color:var(--muted)">/ 100</span></div>
+        <div style="font-size:22px;font-weight:600">${r.level.name}</div>
+        ${r.capped?`<div style="font-size:13px;color:var(--warn-tx)">Capped from ${r.raw} because of a data-handling risk.</div>`:""}
+        <div style="margin-top:14px;font-weight:600;color:var(--accent)">${esc(pe.name)}</div><div style="color:var(--ink2);font-size:15px">${esc(pe.tagline)}</div></div>
+      <div>${radarSvg(r.scores)}</div></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:16px">
+      <div><h3 style="margin:0 0 6px;font-size:16px">Top strengths</h3>${r.strengths.map(x=>`<div class="list-row"><span>${x.d.name}</span><span class="num">${x.score}</span></div>`).join("")}</div>
+      <div><h3 style="margin:0 0 6px;font-size:16px">Top gaps</h3>${r.gaps.map(x=>`<div class="list-row"><span>${x.d.name}</span><span class="num" style="color:var(--warn)">${x.score}</span></div>`).join("")}</div></div>
+    ${r.flags.length?`<p style="margin:16px 0 0;color:var(--warn-tx)"><strong>Critical gaps:</strong> ${r.flags.map(f=>f.title).join(", ")}</p>`:""}
+    <h3 style="margin:18px 0 8px;font-size:16px">Next actions</h3>
+    <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">${r.plan.slice(0,3).map(w=>`<li><strong>${esc(w.focus)}:</strong> ${esc(w.action)}</li>`).join("")}</ol>
+    <p style="margin:18px 0 0;font-size:12px;color:var(--muted)">Self-assessment for development planning, not a performance rating. Scored across 10 weighted dimensions (ADKAR, OECD, NIST AI RMF). Profile is a score pattern, not a diagnosis.</p>
+  </article></section>`;
+}
+async function shareImage(){
+  const r=computeResult(), pe=r.persona, W=1200, H=630;
+  try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
+  const c=document.createElement("canvas"); c.width=W; c.height=H; const g=c.getContext("2d");
+  const sans="'IBM Plex Sans', system-ui, sans-serif", mono="'IBM Plex Mono', ui-monospace, monospace";
+  g.fillStyle="#101828"; g.fillRect(0,0,W,H);
+  g.fillStyle="#A9C1EC"; g.font=`600 22px ${mono}`; g.fillText("AI READINESS PROFILE",64,92);
+  g.fillStyle="#FFFFFF"; g.font=`600 150px ${mono}`; g.fillText(String(r.overall),56,252);
+  const sw=g.measureText(String(r.overall)).width; g.fillStyle="#D0D5DD"; g.font=`400 34px ${mono}`; g.fillText("/ 100",56+sw+16,252);
+  g.fillStyle="#FFFFFF"; g.font=`600 44px ${sans}`; g.fillText(r.level.name,64,318);
+  g.fillStyle="#A9C1EC"; g.font=`600 32px ${sans}`; g.fillText(pe.name,64,384);
+  g.fillStyle="#D0D5DD"; g.font=`400 26px ${sans}`;
+  let line="", y=428; pe.tagline.split(" ").forEach(w=>{ const t=line?line+" "+w:w; if(g.measureText(t).width>560){ g.fillText(line,64,y); y+=36; line=w; } else line=t; }); if(line) g.fillText(line,64,y);
+  g.fillStyle="#FDE7D4"; g.font=`500 24px ${sans}`; g.fillText("Biggest opportunity: "+r.gaps[0].d.name,64,540);
+  g.fillStyle="#98A2B3"; g.font=`400 18px ${mono}`; g.fillText((location.host+location.pathname).replace(/\/$/,""),64,590);
+  const N=DIMS.length, cx=860, cy=318, R=175, pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [cx+Math.cos(a)*R*v/100, cy+Math.sin(a)*R*v/100];};
+  g.strokeStyle="#344054"; g.lineWidth=1.5;
+  [25,50,75,100].forEach(v=>{ g.beginPath(); DIMS.forEach((_,i)=>{const p=pt(i,v); i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}); g.closePath(); g.stroke(); });
+  DIMS.forEach((_,i)=>{ const p=pt(i,100); g.beginPath(); g.moveTo(cx,cy); g.lineTo(p[0],p[1]); g.stroke(); });
+  g.beginPath(); r.scores.forEach((x,i)=>{const p=pt(i,x.score); i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}); g.closePath();
+  g.fillStyle="rgba(111,149,221,0.35)"; g.fill(); g.strokeStyle="#9DB8F2"; g.lineWidth=3; g.stroke();
+  g.fillStyle="#D0D5DD"; g.font=`500 17px ${sans}`;
+  DIMS.forEach((d,i)=>{ const a=-Math.PI/2+i*2*Math.PI/N, lx=cx+Math.cos(a)*(R+24), ly=cy+Math.sin(a)*(R+24)+6; g.textAlign=Math.abs(Math.cos(a))<0.2?"center":(Math.cos(a)>0?"left":"right"); g.fillText(d.short,lx,ly); });
+  g.textAlign="left";
+  c.toBlob(b=>{ if(!b) return; const url=URL.createObjectURL(b); const a=document.createElement("a"); a.href=url; a.download="ai-readiness-profile.png"; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(url); a.remove();},500); },"image/png");
+}
+
+/* ---------------- Workshop mode ---------------- */
+const TALK = {
+  aw:["Which AI tools are approved here, and does everyone know?","Where have we seen AI get things confidently wrong?","What is one misconception about AI we should clear up?"],
+  at:["What worries people most about AI in their role?","Which tasks would we happily hand to AI, and which never?","How do we recognise people who experiment?"],
+  sk:["Who could run a 30-minute hands-on demo for the team?","Which everyday task should we all practise on first?","What stops people trying the tools on real work?"],
+  pv:["How do we check AI-generated facts before they go out?","Should deliverables carry a verified-by step?","Which prompt templates could we share?"],
+  rf:["Which of our recurring tasks are the best AI candidates?","Where would AI add risk rather than value?","Who owns our shared use-case list?"],
+  pr:["What data must never go into public AI tools?","Does everyone know the AI usage policy and who to ask?","How would we spot and report a data mistake?"],
+  ac:["Who still lacks access to an approved tool?","What would help managers actively encourage AI use?","Where should people take their AI questions?"],
+  cf:["When should we trust, check or skip AI output?","How do we keep core skills sharp while using AI?","What should a reviewer look for in AI-assisted work?"],
+  ap:["What real deliverable could each person try with AI this month?","How will we measure time saved?","Which wins should we share at the next team meeting?"],
+  ln:["How do we protect time for practice?","Should we start a community of practice?","How do we share tips without adding meetings?"]
+};
+const b64u = str => btoa(unescape(encodeURIComponent(str))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const unb64u = s => { let b=s.replace(/-/g,"+").replace(/_/g,"/"); while(b.length%4) b+="="; return decodeURIComponent(escape(atob(b))); };
+function wsCode(){ const r=computeResult(); return "AIR1-"+b64u(JSON.stringify({v:1,i:S.rid,d:S.profile.dept,s:r.scores.map(x=>x.score),f:r.flags.map(f=>f.key)})); }
+function parseCodes(text){
+  const out=[];
+  (String(text).match(/AIR1-[A-Za-z0-9_-]{10,600}/g)||[]).forEach(c=>{ try{ const o=JSON.parse(unb64u(c.slice(5)));
+    if(o&&o.v===1&&validDims(o.s)) out.push({id:String(o.i||"?").slice(0,16),dept:String(o.d||"").slice(0,40),dims:o.s.map(Math.round),flags:Array.isArray(o.f)?o.f.filter(k=>["pr","ac","pv","cf"].includes(k)):[]}); }catch(e){} });
+  return out;
+}
+function joinUrl(){ return location.origin+location.pathname+(WS.session?"?session="+encodeURIComponent(WS.session):"")+"#assess"; }
+function qrSvg(text){ try{ const q=qrcode(0,"M"); q.addData(text); q.make(); return q.createSvgTag({cellSize:6,margin:2,scalable:true,alt:"QR code for the assessment link"}); }catch(e){ return ""; } }
+function wsStats(){
+  const P=WS.participants.map(x=>({...x, overall:overallOf(x.dims,x.flags)}));
+  const n=P.length, avgDims=DIMS.map((_,i)=>avgOf(P.map(x=>x.dims[i])));
+  const order=DIMS.map((d,i)=>({d,i,avg:avgDims[i],low:P.filter(x=>x.dims[i]<50).length,mid:P.filter(x=>x.dims[i]>=50&&x.dims[i]<75).length,high:P.filter(x=>x.dims[i]>=75).length}));
+  const sorted=order.slice().sort((a,b)=>a.avg-b.avg);
+  let cards=sorted.filter(x=>x.avg<60).slice(0,4); if(!cards.length) cards=sorted.slice(0,3);
+  return {P,n,avgDims,order,cards,avg:avgOf(P.map(x=>x.overall)),flagged:P.filter(x=>x.flags.length).length};
+}
+function wsCardsText(){ const st=wsStats(); return `AI readiness workshop${WS.session?" · "+WS.session:""} · ${st.n} participants · average ${st.avg}\n\n`+st.cards.map(c=>`${c.d.name} · team average ${c.avg} · ${c.low} of ${st.n} below 50\n`+TALK[c.d.id].map(t=>"- "+t).join("\n")).join("\n\n"); }
+function viewWorkshop(){
+  const st=wsStats(), url=joinUrl();
+  const setup=`<div class="grid wide noprint" style="align-items:start">
+    <div class="card"><h2>1 · Invite participants</h2>
+      <div class="field" style="margin-bottom:14px"><label for="wsSession">Session name</label><input id="wsSession" data-ws="session" value="${esc(WS.session)}" maxlength="40" placeholder="e.g. Marketing team, March"></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center"><div style="background:#fff;padding:8px;border-radius:10px;width:180px;height:180px" id="wsQr">${qrSvg(url)}</div>
+      <div style="flex:1;min-width:200px"><p style="margin:0 0 8px">Participants scan the code or open:</p><code style="display:block;margin-bottom:10px">${esc(url)}</code>
+      <p style="margin:0;color:var(--muted);font-size:14px">They complete the assessment, then copy the workshop code on their results page and paste it into the meeting chat. Codes carry only an anonymous ID, department and scores.</p></div></div></div>
+    <div class="card"><h2>2 · Collect codes</h2>
+      <div class="field"><label for="wsPaste">Paste codes (any amount of chat text is fine)</label><textarea id="wsPaste" rows="5" placeholder="AIR1-…"></textarea></div>
+      <div class="btnrow" style="margin-top:12px"><button class="btn" id="wsAdd">Add codes</button>${st.n?`<button class="btn ghost" id="wsClear">Remove all participants</button>`:""}</div>
+      ${S.wsMsg?`<p role="status" style="margin:10px 0 0;color:var(--accent)">${esc(S.wsMsg)}</p>`:""}
+      ${st.n?`<div class="chips" style="margin-top:14px">${st.P.map(x=>`<button type="button" class="opt chip" data-wsdel="${esc(x.id)}" aria-label="Remove participant ${esc(x.id)}">${esc(x.id)}${x.dept?" · "+esc(x.dept):""} ✕</button>`).join("")}</div>`:""}
+    </div></div>`;
+  const head=`<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end"><div><div class="eyebrow" style="color:var(--accent)">Facilitator view</div><h1 class="page">Workshop${WS.session?": "+esc(WS.session):" mode"}</h1></div>
+    <button type="button" class="opt chip dark noprint" id="wsProj" aria-pressed="${!!S.wsProjector}">Projector mode</button></div>`;
+  if(!st.n) return `<section class="stack">${head}${setup}<div class="card noprint"><p style="margin:0">No participants yet. Team results appear here once you add codes.</p></div></section>`;
+  const avgSeries={vals:st.avgDims,color:"var(--accent)",label:"Team average"};
+  return `<section class="stack">${head}${setup}
+  ${st.n<5?`<div class="flags noprint"><p style="margin:0"><strong>Fewer than 5 participants</strong>With so few people, individual results may be easy to identify. Consider waiting for more codes before projecting.</p></div>`:""}
+  <div class="grid noprint" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div class="card kpi"><div class="l">Participants</div><div class="v">${st.n}</div></div>
+    <div class="card kpi"><div class="l">Average readiness</div><div class="v">${st.avg}</div><div style="font-size:14px;font-weight:500">${levelOf(st.avg).name}</div></div>
+    <div class="card kpi warn"><div class="l">With a critical gap</div><div class="v">${st.flagged}</div><div class="l">${pct(st.flagged,st.n)}</div></div>
+    <div class="card kpi"><div class="l">Lowest area</div><div style="font-size:20px;font-weight:600;margin-top:6px">${st.cards[0].d.name}</div><div class="l">avg ${st.cards[0].avg}</div></div></div>
+  <div class="grid wide noprint" style="align-items:start">
+    <div class="card"><h2>Team average profile</h2>${radarMulti([avgSeries],"Team average scores")}</div>
+    <div class="card"><h2>How people spread in each area</h2>
+      ${st.order.map(o=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:15px"><span>${o.d.name}</span><span class="mono" style="font-size:13px;color:var(--muted)">Low ${o.low} · Mid ${o.mid} · High ${o.high}</span></div>
+        <div style="display:flex;height:14px;border-radius:4px;overflow:hidden;background:var(--track);margin-top:4px">${[["low","var(--s-gap)"],["mid","var(--s-mid)"],["high","var(--s-strong)"]].map(([k,c])=>o[k]?`<span style="width:${o[k]/st.n*100}%;background:${c};box-shadow:inset -1px 0 0 var(--surface)"></span>`:"").join("")}</div></div>`).join("")}
+      <div class="legendrow"><span><i style="background:var(--s-gap)"></i>Low (below 50)</span><span><i style="background:var(--s-mid)"></i>Mid (50–74)</span><span><i style="background:var(--s-strong)"></i>High (75+)</span></div></div></div>
+  <div class="card"><h2>Discussion cards</h2><p class="noprint" style="margin:0 0 14px;color:var(--muted);font-size:14px">The areas where the team scored lowest, with questions to open the conversation.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    ${st.cards.map(c=>`<div class="dcard"><div class="mono" style="font-size:13px;color:var(--warn-tx);font-weight:600">TEAM AVERAGE ${c.avg} · ${c.low} OF ${st.n} BELOW 50</div><div style="font-size:20px;font-weight:600;margin:6px 0 10px">${c.d.name}</div><ul class="clean">${TALK[c.d.id].map(t=>`<li>${t}</li>`).join("")}</ul></div>`).join("")}
+    </div>
+    <div class="btnrow noprint" style="margin-top:16px"><button class="btn" id="wsCopy">Copy cards as text</button><button class="btn ghost" id="wsPrint">Print cards</button><button class="btn ghost" id="wsCsv">Download results (CSV)</button></div>
+  </div></section>`;
+}
+function wsCsv(){
+  const P=wsStats().P, head=["participant_id","department","overall","level"].concat(DIMS.map(d=>d.id)).concat(["flags"]);
+  return [head.join(",")].concat(P.map(x=>[x.id,x.dept,x.overall,levelOf(x.overall).name].concat(x.dims).concat([x.flags.join("; ")]).map(csvCell).join(","))).join("\n");
+}
+async function copyText(text){ try{ await navigator.clipboard.writeText(text); return true; }catch(e){ try{ const t=document.createElement("textarea"); t.value=text; t.style.position="fixed"; t.style.left="-9999px"; document.body.appendChild(t); t.select(); const ok=document.execCommand("copy"); t.remove(); return ok; }catch(e2){ return false; } } }
 
 /* ---------------- Render and events ---------------- */
 const app = document.getElementById("app");
@@ -564,18 +889,31 @@ function render(){
   const answered=Object.keys(S.ans).length;
   document.getElementById("pbar").style.width = (S.step===11?100:Math.round(answered/TOTAL_Q*100))+"%";
   document.getElementById("plbl").textContent = S.step===0?"Profile":(S.step===11?"Complete":`${answered} / ${TOTAL_Q} answered`);
+  document.body.classList.toggle("projector", S.tab==="workshop" && !!S.wsProjector);
   if(S.tab==="team") app.innerHTML=viewTeam();
   else if(S.tab==="method") app.innerHTML=viewMethod();
-  else app.innerHTML = S.step===0?viewIntro():(S.step===11?viewResult():viewDim());
+  else if(S.tab==="history") app.innerHTML=viewHistory();
+  else if(S.tab==="workshop") app.innerHTML=viewWorkshop();
+  else if(S.step===11) app.innerHTML = S.sub==="report"?viewReport():(S.sub==="sim"&&S.sim?viewSim():viewResult());
+  else app.innerHTML = S.step===0?viewIntro():viewDim();
 }
+function keepScroll(fn){ const y=window.scrollY; fn(); render(); window.scrollTo(0,y); }
 function go(step){ S.step=step; render(); window.scrollTo(0,0); }
 function updateStart(){ const b=document.getElementById("start"); if(b) b.disabled=!profileDone(); }
 
 app.addEventListener("input", e=>{
-  const k=e.target.dataset.p; if(!k) return;
-  S.profile[k]=e.target.value; updateStart();
+  const t=e.target;
+  if(t.dataset.sim!==undefined){ const i=+t.dataset.sim; S.sim[i]=+t.value; const v=document.getElementById("simv-"+i); if(v) v.textContent=t.value; const o=document.getElementById("simOut"); if(o) o.innerHTML=simOutHtml(); return; }
+  if(t.dataset.ws==="session"){ WS.session=t.value.slice(0,40); lsSet(WS_KEY,WS); const q=document.getElementById("wsQr"); if(q) q.innerHTML=qrSvg(joinUrl()); const c=q&&q.parentElement.querySelector("code"); if(c) c.textContent=joinUrl(); return; }
+  const k=t.dataset.p; if(!k) return;
+  S.profile[k]=t.value; updateStart();
 });
 app.addEventListener("change", e=>{
+  const t=e.target;
+  if(t.dataset.lock!==undefined){ const i=+t.dataset.lock; S.locks[i]=t.checked; if(t.checked) S.sim[i]=computeResult().scores[i].score; keepScroll(()=>{}); return; }
+  if(t.dataset.hsel!==undefined){ const id=t.dataset.hsel; S.histSel = t.checked ? S.histSel.concat([id]).slice(-2) : S.histSel.filter(x=>x!==id); keepScroll(()=>{}); return; }
+  if(t.dataset.hlabel!==undefined){ const h=HIST.find(x=>x.id===t.dataset.hlabel); if(h){ h.label=t.value.slice(0,40); lsSet(HIST_KEY,HIST); } return; }
+  if(t.id==="histImport" && t.files && t.files[0]){ importHistory(t.files[0]); return; }
   if(e.target.id==="anon"){ S.profile.anon=e.target.checked; render(); return; }
   const k=e.target.dataset.p; if(k){ S.profile[k]=e.target.value; updateStart(); }
 });
@@ -595,13 +933,38 @@ app.addEventListener("click", e=>{
     const y=window.scrollY; render(); window.scrollTo(0,y); return;
   }
   if(t.dataset.dept){ S.teamDept=t.dataset.dept; const y=window.scrollY; render(); window.scrollTo(0,y); return; }
+  if(t.dataset.hdel){ keepScroll(()=>{ HIST=HIST.filter(h=>h.id!==t.dataset.hdel); S.histSel=S.histSel.filter(x=>x!==t.dataset.hdel); if(S.runId===t.dataset.hdel) S.runId=null; lsSet(HIST_KEY,HIST); S.histMsg="Assessment deleted."; }); return; }
+  if(t.dataset.scenLoad){ const x=SCEN.find(s=>s.id===t.dataset.scenLoad); if(x) keepScroll(()=>{ S.sim=x.sim.slice(); S.locks={}; S.simMsg=`Loaded ${x.name}.`; }); return; }
+  if(t.dataset.scenDel){ keepScroll(()=>{ SCEN=SCEN.filter(s=>s.id!==t.dataset.scenDel); lsSet(SCEN_KEY,SCEN); S.simMsg="Scenario deleted."; }); return; }
+  if(t.dataset.wsdel){ keepScroll(()=>{ WS.participants=WS.participants.filter(x=>x.id!==t.dataset.wsdel); lsSet(WS_KEY,WS); S.wsMsg="Participant removed."; }); return; }
   switch(t.id){
-    case "start": go(1); break;
-    case "sample": fillSample(); render(); window.scrollTo(0,0); break;
+    case "start": S.isSample=false; S.runId=null; go(1); break;
+    case "sample": fillSample(); S.isSample=true; S.sub="result"; render(); window.scrollTo(0,0); break;
     case "back": go(S.step-1); break;
-    case "next": go(S.step+1); break;
-    case "review": go(1); break;
-    case "restart": S.ans={}; S.profile=emptyProfile(); S.rid=newId(); S.savedMsg=""; go(0); break;
+    case "next": if(S.step===10){ S.sub="result"; S.step=11; recordHistory(); render(); window.scrollTo(0,0); } else go(S.step+1); break;
+    case "review": S.sub="result"; go(1); break;
+    case "restart": S.ans={}; S.profile=emptyProfile(); S.rid=newId(); S.savedMsg=""; S.runId=null; S.isSample=false; S.sub="result"; S.sim=null; S.locks={}; S.showCode=false; S.codeMsg=""; go(0); break;
+    case "report": S.sub="report"; render(); window.scrollTo(0,0); break;
+    case "print": window.print(); break;
+    case "share": shareImage(); break;
+    case "sim": S.sim=computeResult().scores.map(x=>x.score); S.locks={}; S.simMsg=""; S.sub="sim"; render(); window.scrollTo(0,0); break;
+    case "toResult": S.sub="result"; render(); window.scrollTo(0,0); break;
+    case "simReset": keepScroll(()=>{ S.sim=computeResult().scores.map(x=>x.score); S.locks={}; S.simMsg="Reset to current scores."; }); break;
+    case "simSave": keepScroll(()=>{ const pj=simProjection(); const mine=SCEN.filter(x=>x.rid===S.rid); const num=(mine.length?Math.max(...mine.map(x=>x.num||0)):0)+1;
+      const rec={id:"S"+Date.now().toString(36), rid:S.rid, num, name:"Scenario "+num, sim:S.sim.slice(), overall:pj.overall, ts:new Date().toISOString()};
+      let keep=mine.concat([rec]); let dropped=""; if(keep.length>3){ dropped=` ${keep[0].name} was removed to keep the 3 most recent.`; keep=keep.slice(-3); }
+      SCEN=SCEN.filter(x=>x.rid!==S.rid).concat(keep); lsSet(SCEN_KEY,SCEN); S.simMsg=`Saved ${rec.name}.${dropped}`; }); break;
+    case "showCode": keepScroll(()=>{ S.showCode=true; }); break;
+    case "copyCode": copyText(wsCode()).then(ok=>keepScroll(()=>{ S.codeMsg = ok ? "Copied." : "Select the code and copy it manually."; })); break;
+    case "histExport": download("ai-readiness-history.json", JSON.stringify({exported:new Date().toISOString(),history:HIST},null,2)); break;
+    case "histClear": if(confirm("Delete all saved assessments in this browser? This cannot be undone.")) keepScroll(()=>{ HIST=[]; S.histSel=[]; S.runId=null; lsSet(HIST_KEY,HIST); S.histMsg="History deleted."; }); break;
+    case "wsAdd": { const box=document.getElementById("wsPaste"); const found=parseCodes(box?box.value:""); keepScroll(()=>{ let added=0, upd=0; found.forEach(x=>{ const i=WS.participants.findIndex(p=>p.id===x.id); if(i>=0){ WS.participants[i]=x; upd++; } else { WS.participants.push(x); added++; } }); lsSet(WS_KEY,WS);
+      S.wsMsg = found.length ? `Added ${added} participant${added===1?"":"s"}${upd?`, updated ${upd}`:""}.` : "No valid codes found. Codes start with AIR1-."; }); break; }
+    case "wsClear": if(confirm("Remove all workshop participants?")) keepScroll(()=>{ WS.participants=[]; lsSet(WS_KEY,WS); S.wsMsg="All participants removed."; }); break;
+    case "wsProj": keepScroll(()=>{ S.wsProjector=!S.wsProjector; }); break;
+    case "wsCopy": copyText(wsCardsText()).then(ok=>keepScroll(()=>{ S.wsMsg = ok ? "Discussion cards copied as text." : "Copy failed in this browser; use Print cards instead."; })); break;
+    case "wsPrint": window.print(); break;
+    case "wsCsv": download("ai-readiness-workshop.csv", wsCsv()); break;
     case "save": addToRoster(); { const y=window.scrollY; render(); window.scrollTo(0,y); } break;
     case "toggleSample": S.includeSample=!S.includeSample; render(); break;
     case "clearRoster": ROSTER=[]; saveRoster(ROSTER); S.savedMsg=""; render(); break;
@@ -609,7 +972,7 @@ app.addEventListener("click", e=>{
     case "teamdl": download("ai-readiness-team.csv", teamCsv()); break;
   }
 });
-function fromHash(){ const h=location.hash.replace("#",""); S.tab=["assess","team","method"].includes(h)?h:"assess"; render(); }
+function fromHash(){ const h=location.hash.replace("#",""); S.tab=["assess","history","workshop","team","method"].includes(h)?h:"assess"; render(); }
 window.addEventListener("hashchange", ()=>{ fromHash(); window.scrollTo(0,0); });
 fromHash();
 </script>
