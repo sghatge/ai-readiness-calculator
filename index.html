@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Readiness Calculator</title>
+<meta name="description" content="Employee AI readiness self-assessment with personal report, team dashboard and method.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#F3F5F7;--surface:#FFFFFF;--ink:#101828;--ink2:#344054;--muted:#475467;--line:#D0D5DD;--line2:#EAECF0;--field:#98A2B3;
+  --accent:#1D4ED8;--accent-dk:#1E3A8A;--mid:#6F95DD;--soft:#A9C1EC;--warn:#C4540A;--warn-tx:#8A3505;--warn-bg:#FEF0E6;--warn-bd:#F5B183;
+  --s-gap:#C4540A;--s-mid:#5B82D6;--s-strong:#1E3A8A;--head:#101828;--head-tx:#FFFFFF;--head-sub:#D0D5DD;--track:#EAECF0;--chip-on:#101828;--chip-on-tx:#FFFFFF;--tile:#F3F5F7;--th:#F9FAFB;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B111C;--surface:#121A28;--ink:#F2F4F7;--ink2:#D0D5DD;--muted:#A6B0C0;--line:#2B3546;--line2:#222C3B;--field:#56637A;
+    --accent:#5B8DEF;--accent-dk:#9DB8F2;--warn:#F08A4B;--warn-tx:#F7B98E;--warn-bg:#2A1A10;--warn-bd:#6B3A1C;
+    --s-gap:#F08A4B;--s-mid:#6F95DD;--s-strong:#B9CDF5;--head:#060A12;--track:#222C3B;--chip-on:#F2F4F7;--chip-on-tx:#101828;--tile:#182233;--th:#172030;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B111C;--surface:#121A28;--ink:#F2F4F7;--ink2:#D0D5DD;--muted:#A6B0C0;--line:#2B3546;--line2:#222C3B;--field:#56637A;
+  --accent:#5B8DEF;--accent-dk:#9DB8F2;--warn:#F08A4B;--warn-tx:#F7B98E;--warn-bg:#2A1A10;--warn-bd:#6B3A1C;
+  --s-gap:#F08A4B;--s-mid:#6F95DD;--s-strong:#B9CDF5;--head:#060A12;--track:#222C3B;--chip-on:#F2F4F7;--chip-on-tx:#101828;--tile:#182233;--th:#172030;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.5}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+header.top{background:var(--head);color:var(--head-tx)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.topbar{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:18px 0}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.brand{font-size:20px;font-weight:600}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs a{color:var(--head-sub);text-decoration:none;padding:10px 14px;border-radius:8px;min-height:44px;display:inline-flex;align-items:center}
+nav.tabs a[aria-current="page"]{background:#1F2A3D;color:#fff;font-weight:600}
+.progress{display:flex;align-items:center;gap:12px;padding:0 0 16px}
+.progress .bar{flex:1;height:6px;background:#344054;border-radius:3px;overflow:hidden}
+.progress .bar span{display:block;height:6px;background:var(--soft)}
+.progress .lbl{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--head-sub);white-space:nowrap}
+main{padding:28px 0 72px}
+.stack{display:flex;flex-direction:column;gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px}
+.card h2{margin:0 0 14px;font-size:19px;font-weight:600}
+h1.page{margin:0;font-size:32px;line-height:1.2;font-weight:600}
+.lead{margin:0;color:var(--muted);font-size:17px;max-width:740px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.wide{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.legend{font-size:14px;font-weight:500}
+.field input,.field select,.field textarea{min-height:44px;padding:8px 12px;border:1px solid var(--field);border-radius:8px;background:var(--surface);color:var(--ink)}
+.anon{display:flex;gap:12px;align-items:flex-start;background:var(--tile);border-radius:10px;padding:14px 16px;margin-bottom:20px}
+.anon input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.anon small{display:block;color:var(--muted);font-size:14px}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:46px;padding:10px 14px;border-radius:8px;border:1px solid var(--field);background:var(--surface);color:var(--ink);font-size:15px;cursor:pointer;text-align:left}
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip{border-radius:22px;padding:8px 16px}
+.chip.dark[aria-pressed="true"]{background:var(--chip-on);border-color:var(--chip-on);color:var(--chip-on-tx)}
+.likert{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.mc{display:flex;flex-direction:column;gap:8px}
+.q legend{font-size:17px;font-weight:500;margin-bottom:14px}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btnrow.split{justify-content:space-between}
+.btn{min-height:48px;padding:12px 24px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--field);font-weight:400}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hero{background:var(--head);color:#fff;border-radius:16px;padding:28px;display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:center}
+.hero .big{font-family:'IBM Plex Mono',monospace;font-size:80px;font-weight:600;line-height:1}
+.hero .sub{color:var(--head-sub)}
+.scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.scale div span{display:block;height:14px;border-radius:4px;margin-bottom:6px}
+.scale div.cur span{outline:2px solid #fff;outline-offset:2px}
+.scale small{font-size:12px;line-height:1.3;color:var(--head-sub);display:block}
+.scale div.cur small{color:#fff;font-weight:600}
+.flags{background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:14px;padding:22px}
+.flags h2{margin:0 0 12px;font-size:18px;color:var(--warn-tx)}
+.flags p{margin:0 0 10px;color:var(--ink2)}
+.flags strong{color:var(--ink);display:block}
+.barrow{display:grid;grid-template-columns:minmax(150px,2fr) minmax(100px,3fr) 48px;gap:14px;align-items:center;margin-bottom:12px}
+.barrow small{display:block;font-size:12px;color:var(--muted)}
+.track{height:10px;background:var(--track);border-radius:5px;overflow:hidden}
+.track span{display:block;height:100%;border-radius:5px}
+.num{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right}
+.legendrow{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--muted)}
+.legendrow i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.list-row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line2);padding:8px 0}
+.tile{background:var(--tile);border-radius:10px;padding:16px}
+.tile .tag{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);font-weight:600;display:block}
+.tile strong{display:block;margin:4px 0}
+.tile p{margin:0;font-size:14px;color:var(--ink2)}
+ul.clean{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
+.kpi .v{font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1.1}
+.kpi .l{font-size:14px;color:var(--muted)}
+.kpi.warn{background:var(--warn-bg);border-color:var(--warn-bd)}
+.kpi.warn .l{color:var(--warn-tx)}
+.tbl{overflow-x:auto;border:1px solid var(--line2);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line2)}
+th{font-size:12px;font-weight:600;color:var(--muted);background:var(--th);white-space:nowrap}
+td.low{background:var(--warn-bg)}
+code{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--tile);padding:2px 6px;border-radius:4px;word-break:break-word}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#101828;background:#FDE7D4;padding:6px 12px;border-radius:6px}
+.phase{border-top:4px solid;background:var(--th);border-radius:0 0 10px 10px;padding:16px}
+footer{color:var(--muted);font-size:13px;padding:0 0 40px}
+@media (max-width:560px){.hero .big{font-size:64px}h1.page{font-size:26px}.barrow{grid-template-columns:1fr 44px}.barrow .track{grid-column:1/-1;grid-row:2}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="topbar">
+      <div><div class="eyebrow">AI adoption toolkit</div><div class="brand">AI Readiness Calculator</div></div>
+      <nav class="tabs" aria-label="Sections">
+        <a href="#assess" data-tab="assess">Assessment</a>
+        <a href="#team" data-tab="team">Team report</a>
+        <a href="#method" data-tab="method">Method</a>
+      </nav>
+    </div>
+    <div class="progress" id="progress"><div class="bar"><span id="pbar" style="width:0%"></span></div><span class="lbl" id="plbl">Profile</span></div>
+  </div>
+</header>
+<main class="wrap" id="app" aria-live="polite"></main>
+<footer class="wrap">Responses are scored in your browser and are never sent anywhere. Saved team results stay in this browser only.</footer>
+
+<script>
+"use strict";
+/* ---------------- Data ---------------- */
+const LIKERT = ["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
+const DEPTS = ["CRM & Marketing Ops","Marketing","Sales","Customer Support","Engineering / IT","Finance","HR / People","Operations","Other"];
+const SENIORITIES = ["Junior","Mid-level","Senior","Manager / lead","Director and above"];
+const FREQS = ["Never","Rarely (less than monthly)","Monthly","Weekly","Daily"];
+const TOOLS = ["ChatGPT","Microsoft Copilot","Google Gemini","Claude","GitHub Copilot","Adobe Firefly","Salesforce Einstein","Other","None yet"];
+const LEVELS = [
+  {min:0, name:"AI Beginner", band:"0–39", label:"Not ready", color:"#DCE6F7", desc:"Not ready yet: needs foundations, tool access and support before using AI at work.", next:"Next: fundamentals, policy and tool access"},
+  {min:40,name:"AI Aware", band:"40–59", label:"Emerging", color:"#A9C1EC", desc:"Emerging: understands the basics but rarely applies AI to real work yet.", next:"Next: hands-on labs and use-case mapping"},
+  {min:60,name:"AI Practitioner", band:"60–74", label:"Developing", color:"#6F95DD", desc:"Developing: uses AI for some tasks and needs structured practice to make it routine.", next:"Next: verification practice and a champion pairing"},
+  {min:75,name:"AI Confident", band:"75–89", label:"Ready", color:"#3563C9", desc:"Ready: applies AI regularly with sound judgement and is ready for advanced use cases.", next:"Next: advanced workflows and automation"},
+  {min:90,name:"AI Champion", band:"90–100", label:"Advanced", color:"#1E3A8A", desc:"Advanced: uses AI fluently and responsibly on real work, and helps others do the same.", next:"Next: champion role, use-case library owner"}
+];
+const DIMS = [
+  {id:"aw",name:"AI awareness",short:"Aware",basis:"ADKAR Awareness",w:8,why:"Do you understand what AI tools do, where they fail, and which ones are approved?",rationale:"A prerequisite, but knowing about AI alone does not change work.",
+   qs:[{id:"aw1",type:"l",text:"I can explain in plain terms what generative AI tools do and where they tend to make mistakes."},
+       {id:"aw2",type:"l",text:"I know which AI tools my organization has approved for work use."},
+       {id:"aw3",type:"m",text:"Which statement best describes how a generative AI chatbot produces an answer?",opts:[["It looks the answer up in a verified database",1],["It predicts likely text from patterns in its training data, so it can sound fluent and still be wrong",5],["It copies answers written by human experts",1],["I am not sure",2]]}],
+   barrier:"Limited understanding of what AI tools can and cannot do.",training:"AI fundamentals (1–2 hours): how generative AI works, its limits, and the approved-tools list.",action:"Read the approved-tools list and try each tool once on a low-risk task.",team:"Run a 60-minute AI fundamentals session and publish the approved-tools list."},
+  {id:"at",name:"Attitude and willingness",short:"Attitude",basis:"ADKAR Desire",w:10,why:"How open are you to changing parts of your work with AI?",rationale:"Without desire, training does not convert into use.",
+   qs:[{id:"at1",type:"l",text:"I am interested in using AI to change how I do parts of my job."},
+       {id:"at2",type:"l",rev:true,text:"I worry that using AI at work will reduce the value of my role."},
+       {id:"at3",type:"m",text:"If your team piloted a new AI tool next month, what would you most likely do?",opts:[["Volunteer to try it early",5],["Try it once others have shared results",4],["Use it only if required",2],["Avoid it if possible",1]]}],
+   barrier:"Low motivation, or concern about how AI affects the role.",training:"A 1:1 with your manager on how AI fits your role, plus a peer demo session.",action:"Watch two colleagues use AI on tasks like yours and pick one task you would hand off.",team:"Leaders share real AI wins and address job-impact concerns openly in team meetings."},
+  {id:"sk",name:"Practical AI skills",short:"Skills",basis:"ADKAR Knowledge",w:12,why:"Can you operate AI tools on your own for everyday tasks?",rationale:"Core capability that sets the ceiling on everything else.",
+   qs:[{id:"sk1",type:"l",text:"I can use at least one AI tool to draft, summarize or analyze content without help."},
+       {id:"sk2",type:"l",text:"I know how to give an AI tool context (documents, examples, constraints) to improve its output."},
+       {id:"sk3",type:"m",text:"Which is the most advanced thing you have done with an AI tool?",opts:[["None of these",1],["Asked it simple questions",2],["Drafted or summarized documents",3],["Analyzed data or files I uploaded",4],["Built a reusable workflow, template or automation",5]]}],
+   barrier:"Limited hands-on skill with AI tools.",training:"Hands-on lab: drafting, summarizing and analyzing files with the approved tool.",action:"Complete three guided exercises using your own non-sensitive work material.",team:"Hands-on labs with the approved tool, using real non-sensitive work."},
+  {id:"pv",name:"Prompting and verification",short:"Prompt/verify",basis:"ADKAR Ability",w:12,why:"Can you steer AI to a good answer, and do you check what it gives you?",rationale:"Quality and accuracy of output depend on it, and it carries a direct error risk.",
+   qs:[{id:"pv1",type:"l",text:"When an AI answer is not good enough, I know how to rephrase or add instructions to improve it."},
+       {id:"pv2",type:"l",text:"I check facts, figures and sources in AI output before I use it."},
+       {id:"pv3",type:"m",scenario:true,text:"An AI tool gives you a market statistic with a source link for a client report. What do you do?",opts:[["Use it as given, since it has a source",1],["Use it and label it as AI-generated",2],["Open the source and confirm it says what the AI claims",5],["Ask the AI whether it is sure",2]]}],
+   barrier:"Weak prompting and output-checking habits.",training:"Prompting and verification workshop: context, examples, constraints and fact-checking.",action:"Use a prompt template for a week and verify every figure against its source.",team:"Prompting and verification workshop; add a verified-by step to deliverable checklists."},
+  {id:"rf",name:"Role and use-case fit",short:"Role fit",basis:"Role fit",w:10,why:"Can you see where AI fits into the work you actually do?",rationale:"Readiness only matters where AI fits the work.",
+   qs:[{id:"rf1",type:"l",text:"I can name at least two recurring tasks in my role where AI could save time or improve quality."},
+       {id:"rf2",type:"l",text:"My main tasks include work AI handles well, such as writing, summarizing, research, analysis, coding or data preparation."},
+       {id:"rf3",type:"m",text:"How much of your weekly work could realistically be assisted by AI today?",opts:[["Almost none",1],["Under 10%",2],["10–25%",3],["25–50%",4],["Over 50%",5]]}],
+   barrier:"Unclear where AI fits in the role.",training:"Use-case mapping session with your manager.",action:"List your ten most frequent tasks and mark which ones AI could assist.",team:"Use-case mapping per role, collected into a shared use-case library."},
+  {id:"pr",name:"Data privacy and responsible AI",short:"Privacy",basis:"OECD · NIST AI RMF",w:14,why:"Do you know what data must stay out of AI tools, and where AI needs human judgement?",rationale:"Highest weight: the main source of organizational risk, and a gate on safe scaling.",
+   qs:[{id:"pr1",type:"l",text:"I know what types of company or customer data I must not enter into public AI tools."},
+       {id:"pr2",type:"l",text:"I know our AI usage policy, or who to ask about it."},
+       {id:"pr3",type:"m",scenario:true,text:"You need to summarize a spreadsheet of customer names, emails and purchase history. Which approach is appropriate?",opts:[["Paste it into any free AI chatbot",1],["Remove personal data first, or use only a tool approved for this data",5],["Paste it in, then delete the chat afterwards",1],["Ask a colleague to do it instead",2]]},
+       {id:"pr4",type:"m",scenario:true,text:"An AI tool produces a shortlist of job candidates. What is the main responsible-AI concern?",opts:[["It may be slower than doing it by hand",1],["It may reflect bias in its data, so a person must review and own the decision",5],["The formatting may be inconsistent",1],["The licence cost",1]]}],
+   barrier:"Gaps in data-privacy and responsible-AI knowledge.",training:"Mandatory: AI usage policy and data-classification module.",action:"Complete the AI usage-policy module before any further AI use with company data.",team:"Make the AI usage-policy module mandatory before tool access; publish a data do and don't card."},
+  {id:"ac",name:"Access and organizational support",short:"Access",basis:"ADKAR Reinforcement · org readiness",w:10,why:"Do you have approved tools, encouragement and someone to ask?",rationale:"Structural enabler; low scores point to the organization, not the person.",
+   qs:[{id:"ac1",type:"l",text:"I have access to at least one company-approved AI tool for my work."},
+       {id:"ac2",type:"l",text:"My manager encourages me to try AI for work tasks."},
+       {id:"ac3",type:"l",text:"I have access to training, guidance or a go-to person for AI questions."}],
+   barrier:"Missing tool access or manager support.",training:"Request an approved tool licence and agree AI goals with your manager.",action:"Raise a tool-access request and agree one AI goal with your manager.",team:"Close licence gaps and ask managers to set one AI goal per person."},
+  {id:"cf",name:"Confidence without over-reliance",short:"Confidence",basis:"OECD critical thinking",w:8,why:"Are you confident using AI while keeping your own judgement in charge?",rationale:"Balances confidence against blind trust in AI output.",
+   qs:[{id:"cf1",type:"l",text:"I feel confident using AI tools in front of colleagues or clients."},
+       {id:"cf2",type:"l",rev:true,text:"I sometimes use AI output in my work without fully understanding it."},
+       {id:"cf3",type:"m",scenario:true,text:"If AI tools were unavailable for a week, how would your work be affected?",opts:[["I could not do key parts of my job",1],["Noticeably slower, but I would manage",4],["Little impact: AI assists my skills rather than replacing them",5],["No impact, because I do not use AI",2]]}],
+   barrier:"Low confidence, or a risk of over-relying on AI output.",training:"Critical thinking with AI: when to trust, check or skip it.",action:"For each AI-assisted task, write one line on what you checked and what you changed.",team:"Teach when to trust, check or skip AI; review AI-assisted work in 1:1s."},
+  {id:"ap",name:"Applying AI to real work",short:"Apply",basis:"ADKAR Ability",w:10,why:"Is AI already part of real deliverables, not just experiments?",rationale:"The behaviour that creates value.",
+   qs:[{id:"ap1",type:"l",text:"I have used AI to help complete a real work deliverable in the last month."},
+       {id:"ap2",type:"l",text:"I can estimate how much time AI saves me on a typical task."},
+       {id:"ap3",type:"m",text:"Which best describes your AI use at work?",opts:[["I do not use it",1],["I experiment occasionally",2],["I use it for a few specific tasks",3],["It is part of my regular workflow",4],["I have redesigned a process around it and share it with others",5]]}],
+   barrier:"AI not yet applied to real deliverables.",training:"Pair with an AI champion on a live task.",action:"Deliver one real piece of work with AI help and record the time saved.",team:"Pair low-application staff with AI champions on live deliverables."},
+  {id:"ln",name:"Continuous learning",short:"Learning",basis:"ADKAR Reinforcement",w:6,why:"Do you keep building AI skills as the tools change?",rationale:"Keeps readiness from going stale; lower weight because it is a habit, not a capability.",
+   qs:[{id:"ln1",type:"l",text:"In the last three months I have spent time learning a new AI skill or feature."},
+       {id:"ln2",type:"l",text:"I share AI tips or examples with colleagues."},
+       {id:"ln3",type:"m",text:"How do you keep up with changes in AI tools?",opts:[["I do not, currently",1],["When someone shows me",2],["Occasional articles or videos",3],["Regular courses or practice",4],["Regular practice, and I teach others",5]]}],
+   barrier:"No regular learning habit for AI.",training:"Join an AI community of practice; protect 30 minutes a week for practice.",action:"Block 30 minutes for AI practice and share one tip with your team.",team:"Start a fortnightly AI community of practice with 30 minutes of protected practice time."}
+];
+const USECASES = {
+  "CRM & Marketing Ops":["Draft and QA email copy and subject-line variants for A/B tests","Summarize campaign performance exports into a weekly brief","Draft segmentation logic, test lists and QA checklists for review"],
+  "Marketing":["First drafts of briefs, social posts and landing-page copy","Summarize competitor content and customer reviews","Draft translations and localizations for native-speaker review"],
+  "Sales":["Account research briefs before calls","Follow-up emails drafted from call notes","RFP requirements turned into a checklist"],
+  "Customer Support":["Reply drafts based on knowledge-base articles","Summaries of long ticket threads","Spotting recurring issues across tickets"],
+  "Engineering / IT":["Code explanation, review and test generation","Technical documentation drafts","Log and error triage"],
+  "Finance":["Plain-language explanations of variances","Drafting formulas and reconciliation checks","Summaries of policies and contracts for review"],
+  "HR / People":["Job description and policy FAQ drafts","Themes from free-text survey answers","Onboarding checklists"],
+  "Operations":["Process notes turned into SOPs","Meeting notes turned into action lists","Status reports drafted from tracker data"],
+  "Other":["Summaries of long documents and email threads","First drafts of routine writing","Notes turned into structured action lists"]
+};
+// Sample team data: [id, dept, role, seniority, frequency, [aw,at,sk,pv,rf,pr,ac,cf,ap,ln]]
+const SAMPLE = [
+  ["E01","CRM & Marketing Ops","Campaign specialist","Mid-level","Weekly",[75,80,70,65,80,55,70,65,70,60]],
+  ["E02","CRM & Marketing Ops","Marketing ops lead","Manager / lead","Daily",[90,90,88,85,90,85,80,80,90,85]],
+  ["E03","CRM & Marketing Ops","CRM analyst","Junior","Weekly",[60,75,55,45,70,40,60,50,50,55]],
+  ["E04","Marketing","Content manager","Mid-level","Daily",[80,85,80,70,85,50,70,60,80,70]],
+  ["E05","Marketing","Designer","Mid-level","Monthly",[50,45,40,35,55,45,50,45,35,40]],
+  ["E06","Marketing","Social media executive","Junior","Daily",[70,90,75,50,80,35,55,40,75,70]],
+  ["E07","Sales","Account manager","Senior","Rarely",[40,35,30,30,45,50,30,40,25,25]],
+  ["E08","Sales","Sales representative","Junior","Monthly",[55,60,45,40,60,45,30,50,40,45]],
+  ["E09","Sales","Sales director","Director and above","Weekly",[70,75,60,55,65,70,70,65,60,55]],
+  ["E10","Customer Support","Support agent","Junior","Weekly",[60,65,60,50,75,55,65,55,60,50]],
+  ["E11","Customer Support","Support team lead","Manager / lead","Weekly",[75,70,70,65,80,80,75,70,70,65]],
+  ["E12","Customer Support","Support agent","Junior","Never",[30,40,20,20,50,35,25,35,15,20]],
+  ["E13","Engineering / IT","Software developer","Mid-level","Daily",[95,90,95,90,95,85,90,85,95,90]],
+  ["E14","Engineering / IT","QA engineer","Mid-level","Daily",[85,80,85,80,90,75,85,70,85,80]],
+  ["E15","Engineering / IT","IT administrator","Senior","Weekly",[80,70,75,75,70,90,80,75,70,65]],
+  ["E16","Finance","Financial analyst","Mid-level","Monthly",[55,50,45,50,60,75,40,55,40,40]],
+  ["E17","Finance","Finance manager","Manager / lead","Rarely",[45,40,35,40,50,70,35,50,30,30]],
+  ["E18","HR / People","HR business partner","Mid-level","Monthly",[50,55,45,40,55,60,45,45,40,45]],
+  ["E19","HR / People","Recruiter","Junior","Weekly",[65,80,65,50,70,40,55,45,60,60]],
+  ["E20","Operations","Operations coordinator","Mid-level","Weekly",[65,70,60,55,70,65,60,60,55,50]]
+];
+const TEAM_FLAGS = [
+  {key:"Privacy",title:"Data-handling risk",rule:"Data privacy and responsible AI below 50",test:d=>d[5]<50},
+  {key:"Access",title:"No approved tool access",rule:"Access and support below 40",test:d=>d[6]<40},
+  {key:"Verify",title:"Verification gap",rule:"Prompting and verification below 45",test:d=>d[3]<45},
+  {key:"Reliance",title:"Over-reliance risk",rule:"Confidence without over-reliance below 45",test:d=>d[7]<45}
+];
+const TOTAL_Q = DIMS.reduce((a,d)=>a+d.qs.length,0);
+
+/* ---------------- State ---------------- */
+const newId = () => "R-" + Math.random().toString(36).slice(2,6).toUpperCase();
+const emptyProfile = () => ({anon:true,name:"",dept:"",role:"",seniority:"",freq:"",approval:"",tools:[],tasks:""});
+const S = {tab:"assess", step:0, ans:{}, profile:emptyProfile(), rid:newId(), teamDept:"All", includeSample:true, savedMsg:""};
+
+/* ---------------- Roster (saved in this browser only) ---------------- */
+const ROSTER_KEY = "aiReadinessRoster.v1";
+const GOV_CAP = 59; // data-handling risk caps the overall score at the top of "AI Aware"
+function loadRoster(){ try{ const r=JSON.parse(localStorage.getItem(ROSTER_KEY)||"[]"); return Array.isArray(r)?r:[]; }catch(e){ return []; } }
+function saveRoster(list){ try{ localStorage.setItem(ROSTER_KEY, JSON.stringify(list)); return true; }catch(e){ return false; } }
+let ROSTER = loadRoster();
+
+/* ---------------- Helpers ---------------- */
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tone = v => v<50 ? "var(--s-gap)" : (v<75 ? "var(--s-mid)" : "var(--s-strong)");
+const levelOf = v => LEVELS.slice().reverse().find(l=>v>=l.min);
+const avgOf = a => a.length ? Math.round(a.reduce((x,y)=>x+y,0)/a.length) : 0;
+const pct = (a,b) => (b?Math.round(a/b*100):0)+"%";
+const csvCell = v => '"' + String(v).replace(/"/g,'""') + '"';
+function download(name, text){
+  const blob = new Blob([text],{type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url); a.remove();},500);
+}
+function qScore(q){
+  const a = S.ans[q.id]; if(a===undefined) return null;
+  if(q.type==="l"){ const v=a+1; return q.rev?6-v:v; }
+  return q.opts[a][1];
+}
+const qById = id => { for(const d of DIMS) for(const q of d.qs) if(q.id===id) return q; return null; };
+function dimScore(d){
+  const ss = d.qs.map(qScore).filter(x=>x!==null);
+  return ss.length ? Math.round(ss.reduce((a,b)=>a+(b-1)/4*100,0)/ss.length) : 0;
+}
+function legendRow(){ return `<div class="legendrow"><span><i style="background:var(--s-strong)"></i>75+ strong</span><span><i style="background:var(--s-mid)"></i>50–74 developing</span><span><i style="background:var(--s-gap)"></i>below 50 gap</span></div>`; }
+
+/* ---------------- Assessment ---------------- */
+function profileDone(){ const p=S.profile; return !!(p.dept&&p.seniority&&p.freq&&p.approval&&(p.anon||p.name.trim())); }
+function selectField(id,key,label,opts){
+  const v=S.profile[key];
+  return `<div class="field"><label for="${id}">${label}</label><select id="${id}" data-p="${key}"><option value="">Select…</option>${opts.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`;
+}
+function viewIntro(){
+  const p=S.profile;
+  return `<section class="stack">
+  <div class="stack" style="gap:10px"><h1 class="page">How ready are you to use AI in your daily work?</h1>
+  <p class="lead">About 6 minutes. ${TOTAL_Q} questions across 10 areas, from awareness and skills to data privacy and support. Answer for how you work today, not how you would like to. You get a personal score, your strengths and gaps, and a 30-day plan.</p></div>
+  <div class="card">
+    <h2>About you</h2>
+    <div class="anon"><input id="anon" type="checkbox" ${p.anon?"checked":""}><label for="anon"><span style="font-weight:500">Answer anonymously</span><small>Your result is recorded under ID ${esc(S.rid)} instead of your name. Team reports only show groups of 5 or more.</small></label></div>
+    <div class="grid">
+      ${p.anon?"":`<div class="field"><label for="f-name">Name</label><input id="f-name" data-p="name" value="${esc(p.name)}" placeholder="Your name"></div>`}
+      ${selectField("f-dept","dept","Department / team *",DEPTS)}
+      <div class="field"><label for="f-role">Job role</label><input id="f-role" data-p="role" value="${esc(p.role)}" placeholder="e.g. Campaign specialist"></div>
+      ${selectField("f-sen","seniority","Seniority *",SENIORITIES)}
+      ${selectField("f-freq","freq","How often do you use AI for work? *",FREQS)}
+      ${selectField("f-appr","approval","Has your manager approved AI use for your work? *",["Yes","No","Not sure"])}
+    </div>
+    <fieldset style="margin-top:22px"><legend class="legend" style="margin-bottom:10px">AI tools you currently use (select all that apply)</legend>
+      <div class="chips">${TOOLS.map(t=>`<button type="button" class="opt chip" data-tool="${esc(t)}" aria-pressed="${p.tools.includes(t)}">${esc(t)}</button>`).join("")}</div></fieldset>
+    <div class="field" style="margin-top:22px"><label for="f-tasks">Your main work tasks</label><textarea id="f-tasks" data-p="tasks" rows="3" placeholder="e.g. Building email campaigns, QA, weekly performance reporting">${esc(p.tasks)}</textarea></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="start" ${profileDone()?"":"disabled"}>Start assessment</button><button class="btn ghost" id="sample">Preview with sample answers</button><span style="color:var(--muted);font-size:14px">* required</span></div>
+  </section>`;
+}
+function viewDim(){
+  const i=S.step-1, d=DIMS[i];
+  let offset=0; for(let k=0;k<i;k++) offset+=DIMS[k].qs.length;
+  const done = d.qs.every(q=>S.ans[q.id]!==undefined);
+  const qs = d.qs.map((q,j)=>{
+    const labels = q.type==="l"?LIKERT:q.opts.map(o=>o[0]);
+    const a = S.ans[q.id];
+    return `<div class="card q"><fieldset><legend>${offset+j+1}. ${esc(q.text)}</legend>
+      <div class="${q.type==="l"?"likert":"mc"}">${labels.map((lab,k)=>`<button type="button" class="opt" data-q="${q.id}" data-k="${k}" aria-pressed="${a===k}">${esc(lab)}</button>`).join("")}</div></fieldset></div>`;
+  }).join("");
+  return `<section class="stack">
+    <div class="stack" style="gap:6px;max-width:760px"><span class="mono" style="font-size:13px;color:var(--accent);letter-spacing:.04em">AREA ${S.step} OF 10 · ${esc(d.basis).toUpperCase()}</span>
+    <h1 class="page" style="font-size:30px">${esc(d.name)}</h1><p class="lead" style="font-size:16px">${esc(d.why)}</p></div>
+    ${qs}
+    <div class="btnrow split"><button class="btn ghost" id="back">Back</button><button class="btn" id="next" ${done?"":"disabled"}>${S.step===10?"See my results":"Next area"}</button></div>
+  </section>`;
+}
+function computeResult(){
+  const p=S.profile;
+  const scores = DIMS.map(d=>({d,score:dimScore(d)}));
+  const raw = Math.round(scores.reduce((a,x)=>a+x.score*x.d.w,0)/100);
+  const asc = scores.slice().sort((a,b)=>a.score-b.score);
+  const desc = scores.slice().sort((a,b)=>b.score-a.score);
+  const sv = id => qScore(qById(id));
+  const flags=[];
+  const pr3=sv("pr3"), ac1=sv("ac1"), pv3=sv("pv3");
+  if(scores[5].score<50 || (pr3!==null&&pr3<5)) flags.push({key:"pr",title:"Data-handling risk",text:"Your answers suggest personal or confidential data could reach unapproved AI tools. Complete the AI usage-policy module before using AI with company data."});
+  if((ac1!==null&&ac1<=2) || p.approval==="No") flags.push({key:"ac",title:"No approved tool access",text:"You report no approved AI tool or no manager approval. Raise an access request so that AI use happens on approved tools."});
+  if(pv3!==null&&pv3<=2) flags.push({key:"pv",title:"Verification gap",text:"AI-generated facts and figures may be used without checking the original source."});
+  if(scores[7].score<45) flags.push({key:"cf",title:"Over-reliance risk",text:"Your confidence and dependence answers suggest AI output may be used without full understanding."});
+  const capped = flags.some(f=>f.key==="pr") && raw>GOV_CAP;
+  const overall = capped ? GOV_CAP : raw;
+  const level = levelOf(overall);
+  const focus=[];
+  flags.forEach(f=>{const d=DIMS.find(x=>x.id===f.key); if(d&&!focus.includes(d)) focus.push(d);});
+  asc.forEach(x=>{ if(!focus.includes(x.d)) focus.push(x.d); });
+  const plan = focus.slice(0,3).map((d,i)=>({week:"WEEK "+(i+1),focus:d.name,action:d.action}));
+  plan.push({week:"WEEK 4",focus:"Apply and measure",action:"Use AI on one real task from start to finish, note the time saved and what you checked, and review it with your manager."});
+  const who = p.anon ? S.rid : (p.name.trim()||S.rid);
+  return {scores,overall,raw,capped,level,flags,plan,who,strengths:desc.slice(0,3),gaps:asc.slice(0,3)};
+}
+function radarSvg(scores){
+  const N=scores.length, C=170, R=118, pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [C+Math.cos(a)*R*v/100, C+Math.sin(a)*R*v/100];};
+  const ring=v=>scores.map((_,i)=>pt(i,v).join(",")).join(" ");
+  const poly=scores.map((x,i)=>pt(i,x.score).join(",")).join(" ");
+  const label=(x,i)=>{const a=-Math.PI/2+i*2*Math.PI/N; const lx=C+Math.cos(a)*(R+22), ly=C+Math.sin(a)*(R+22); const anc=Math.abs(Math.cos(a))<0.2?"middle":(Math.cos(a)>0?"start":"end");
+    return `<text x="${lx.toFixed(1)}" y="${(ly+4).toFixed(1)}" text-anchor="${anc}" font-size="11" fill="var(--muted)">${x.d.short} ${x.score}</text>`;};
+  const desc=scores.map(x=>`${x.d.name} ${x.score}`).join(", ");
+  return `<svg viewBox="-80 0 500 340" role="img" aria-label="Radar chart of dimension scores: ${esc(desc)}" style="width:100%;max-width:540px;display:block;margin:0 auto">
+    ${[25,50,75,100].map(v=>`<polygon points="${ring(v)}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join("")}
+    ${scores.map((_,i)=>{const p=pt(i,100); return `<line x1="${C}" y1="${C}" x2="${p[0]}" y2="${p[1]}" stroke="var(--line)" stroke-width="1"/>`;}).join("")}
+    <polygon points="${poly}" fill="var(--accent)" fill-opacity="0.18" stroke="var(--accent)" stroke-width="2"/>
+    ${scores.map((x,i)=>{const p=pt(i,x.score); return `<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${tone(x.score)}"/>`;}).join("")}
+    ${scores.map(label).join("")}
+  </svg>`;
+}
+function viewResult(){
+  const p=S.profile, r=computeResult();
+  const useCases = USECASES[p.dept]||USECASES.Other;
+  const intro = p.tasks.trim() ? `Start with the tasks you listed (${esc(p.tasks.trim())}). Typical starting points in ${esc(p.dept||"your area")}:` : `Typical starting points in ${esc(p.dept||"your area")}:`;
+  return `<section class="stack">
+  <div class="hero">
+    <div><div class="mono" style="font-size:13px;color:var(--soft)">${esc(r.who)} · ${esc(p.dept)}</div>
+      <div style="display:flex;align-items:baseline;gap:8px"><span class="big">${r.overall}</span><span class="mono sub" style="font-size:22px">/ 100</span></div>
+      <div style="font-size:26px;font-weight:600">${r.level.name}</div><div class="sub">${esc(r.level.desc)}</div>
+      ${r.capped?`<div style="margin-top:10px;font-size:14px;background:#3A1D0A;color:#FDE7D4;border-radius:8px;padding:8px 12px">Capped from ${r.raw} to ${GOV_CAP} because of a data-handling risk. Fix it to unlock your full score.</div>`:""}</div>
+    <div><div class="sub" style="font-size:14px;margin-bottom:10px">Readiness scale</div>
+      <div class="scale">${LEVELS.map(l=>`<div class="${l===r.level?"cur":""}"><span style="background:${l.color}"></span><small>${l.name}<br>${l.band}</small></div>`).join("")}</div></div>
+  </div>
+  ${r.flags.length?`<div class="flags"><h2>Critical gaps to fix first</h2>${r.flags.map(f=>`<p><strong>${f.title}</strong>${f.text}</p>`).join("")}</div>`:""}
+  <div class="card"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:14px"><h2 style="margin:0">Scores by area</h2><span style="font-size:13px;color:var(--muted)">Weight = share of your overall score</span></div>
+    ${r.scores.map(x=>`<div class="barrow"><div><span style="font-weight:500">${x.d.name}</span><small>${x.d.basis} · weight ${x.d.w}%</small></div><div class="track"><span style="width:${Math.max(2,x.score)}%;background:${tone(x.score)}"></span></div><span class="num">${x.score}</span></div>`).join("")}
+    ${legendRow()}</div>
+  <div class="card"><h2>Readiness profile</h2>${radarSvg(r.scores)}</div>
+  <div class="grid wide">
+    <div class="card"><h2>Strengths</h2>${r.strengths.map(x=>`<div class="list-row"><span>${x.d.name}</span><span class="num" style="color:var(--accent)">${x.score}</span></div>`).join("")}</div>
+    <div class="card"><h2>Top 3 barriers</h2>${r.gaps.map(x=>`<div class="list-row" style="flex-direction:column;gap:2px"><div style="display:flex;justify-content:space-between"><span style="font-weight:500">${x.d.name}</span><span class="num" style="color:var(--warn)">${x.score}</span></div><span style="color:var(--muted);font-size:14px">${x.d.barrier}</span></div>`).join("")}</div>
+  </div>
+  <div class="card"><h2>Your 30-day plan</h2><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px">${r.plan.map(w=>`<div class="tile"><span class="tag">${w.week}</span><strong>${esc(w.focus)}</strong><p>${esc(w.action)}</p></div>`).join("")}</div></div>
+  <div class="grid wide">
+    <div class="card"><h2>Use cases for your role</h2><p style="margin:0 0 10px;font-size:14px;color:var(--muted)">${intro}</p><ul class="clean">${useCases.map(u=>`<li>${esc(u)}</li>`).join("")}</ul></div>
+    <div class="card"><h2>Suggested training</h2>${r.gaps.map(x=>`<div style="margin-bottom:10px"><div style="font-weight:500">${x.d.name}</div><div style="font-size:14px;color:var(--ink2)">${x.d.training}</div></div>`).join("")}</div>
+  </div>
+  <div class="card"><h2>Responsible-use reminders</h2><ul class="clean">
+    <li>Do not enter personal, customer or confidential data into AI tools your organization has not approved for that data.</li>
+    <li>Check every fact, figure, quote and link against its original source before you use it.</li>
+    <li>You are accountable for anything you send, publish or decide, whether AI helped or not.</li>
+    <li>Say when AI helped produce work if your policy or your audience expects it.</li>
+    <li>Keep a person in charge of decisions about people, such as hiring, performance or credit.</li></ul></div>
+  <div class="btnrow"><button class="btn" id="save">Save &amp; add to team roster</button><button class="btn ghost" id="dl">Download my result (CSV)</button><button class="btn ghost" id="review">Review answers</button><button class="btn ghost" id="restart">Start over</button></div>
+  ${S.savedMsg?`<p role="status" style="margin:0;color:var(--accent);font-weight:500">${esc(S.savedMsg)} <a href="#team">Open team report</a></p>`:""}
+  <p style="margin:0;font-size:13px;color:var(--muted)">The roster is kept in this browser only. Use it to collect results on one shared device, such as a workshop laptop, or export it as CSV.</p>
+  </section>`;
+}
+function resultCsv(){
+  const p=S.profile, r=computeResult();
+  const head=["respondent_id","department","role","seniority","ai_frequency","manager_approval","tools"].concat(DIMS.map(d=>d.id+"_score")).concat(["overall","level","flags"]);
+  const row=[r.who,p.dept,p.role,p.seniority,p.freq,p.approval,p.tools.join("; ")].concat(r.scores.map(x=>x.score)).concat([r.overall,r.level.name,r.flags.map(f=>f.title).join("; ")]);
+  return head.join(",")+"\n"+row.map(csvCell).join(",");
+}
+function fillSample(){
+  const lp=[3,2,3,4,1,3,2]; let k=0; const ans={};
+  DIMS.forEach(d=>d.qs.forEach(q=>{ ans[q.id] = q.type==="l" ? lp[k%lp.length] : Math.min(1+(k%2), q.opts.length-1); k++; }));
+  S.ans=ans;
+  S.profile={anon:true,name:"",dept:"CRM & Marketing Ops",role:"Campaign specialist",seniority:"Mid-level",freq:"Weekly",approval:"Yes",tools:["ChatGPT","Microsoft Copilot"],tasks:"Email campaign builds, QA and weekly reporting"};
+  S.step=11;
+}
+
+/* ---------------- Team report ---------------- */
+function addToRoster(){
+  const p=S.profile, r=computeResult();
+  const keyMap={pr:"Privacy",ac:"Access",pv:"Verify",cf:"Reliance"};
+  const rec={id:r.who,dept:p.dept,role:p.role||"–",sen:p.seniority,freq:p.freq,dims:r.scores.map(x=>x.score),flags:r.flags.map(f=>keyMap[f.key]),saved:new Date().toISOString().slice(0,10)};
+  ROSTER = ROSTER.filter(x=>x.id!==rec.id).concat([rec]);
+  S.savedMsg = saveRoster(ROSTER) ? `Saved ${rec.id} to the team roster (${ROSTER.length} saved).` : "This browser blocks saving, so the result is in the roster only until you close the page.";
+}
+function personFrom(id,dept,role,sen,freq,d,flags,source){
+  const raw=Math.round(d.reduce((a,v,i)=>a+v*DIMS[i].w,0)/100);
+  const overall = flags.includes("Privacy") ? Math.min(raw,GOV_CAP) : raw;
+  return {id,dept,role,sen,freq,dims:d,raw,overall,capped:overall<raw,level:levelOf(overall).name,flags,source};
+}
+function teamData(){
+  const people = (S.includeSample ? SAMPLE.map(r=>personFrom(r[0],r[1],r[2],r[3],r[4],r[5],TEAM_FLAGS.filter(f=>f.test(r[5])).map(f=>f.key),"Sample")) : [])
+    .concat(ROSTER.map(x=>personFrom(x.id,x.dept,x.role,x.sen,x.freq,x.dims,x.flags||[],"Saved")));
+  const depts=[]; people.forEach(p=>{ if(!depts.includes(p.dept)) depts.push(p.dept); });
+  const scope = S.teamDept==="All" ? people : people.filter(p=>p.dept===S.teamDept);
+  return {people,depts,scope};
+}
+function viewTeam(){
+  const {people,depts,scope}=teamData(); const n=scope.length;
+  const sourceBar = `<div class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px 20px">
+    <span><strong>${ROSTER.length}</strong> saved response${ROSTER.length===1?"":"s"} in this browser${S.includeSample?" + 20 sample employees":""}</span>
+    <span class="btnrow"><button type="button" class="opt chip dark" id="toggleSample" aria-pressed="${S.includeSample}">Include sample data</button>${ROSTER.length?`<button type="button" class="btn ghost" id="clearRoster" style="min-height:44px;padding:8px 16px">Clear saved responses</button>`:""}</span></div>`;
+  if(!n) return `<section class="stack"><div><div class="eyebrow" style="color:var(--accent)">Manager and leadership view</div><h1 class="page">Team AI readiness report</h1></div>${sourceBar}<div class="card"><p style="margin:0">No responses yet. Complete the assessment and choose “Save &amp; add to team roster”, or turn on sample data.</p></div></section>`;
+  if(S.teamDept!=="All" && !depts.includes(S.teamDept)){ S.teamDept="All"; return viewTeam(); }
+  const avg=avgOf(scope.map(p=>p.overall)); const ready=scope.filter(p=>p.overall>=75).length; const flagged=scope.filter(p=>p.flags.length).length;
+  const dist=LEVELS.map((l,i)=>{const hi=i<LEVELS.length-1?LEVELS[i+1].min:101; const c=scope.filter(p=>p.overall>=l.min&&p.overall<hi).length; return {l,c};});
+  const deptRows=depts.map(d=>{const g=people.filter(p=>p.dept===d); return {d,n:g.length,avg:avgOf(g.map(p=>p.overall))};}).sort((a,b)=>b.avg-a.avg);
+  const dimAvg=DIMS.map((dm,i)=>({dm,avg:avgOf(scope.map(p=>p.dims[i]))})).sort((a,b)=>a.avg-b.avg);
+  const risks=TEAM_FLAGS.map(f=>{const who=scope.filter(p=>p.flags.includes(f.key)); return {f,who};}).sort((a,b)=>b.who.length-a.who.length);
+  const cnt=k=>scope.filter(p=>p.flags.includes(k)).length;
+  const low=dimAvg.slice(0,3);
+  const roadmap=[
+    {days:"DAYS 1–30",name:"Foundations",color:"#C4540A",items:[`Close tool-access gaps: ${cnt("Access")} people have no approved tool.`,`AI usage-policy module for everyone; ${cnt("Privacy")} people flagged for data-handling risk go first.`,"Publish the approved-tools list and a one-page data do and don't card.","Nominate one AI champion per department."]},
+    {days:"DAYS 31–60",name:"Build skills",color:"#6F95DD",items:[`Targeted workshops on ${low[0].dm.name.toLowerCase()} and ${low[1].dm.name.toLowerCase()}.`,"Role-based use-case mapping in every department.","Pair AI Beginner and AI Aware staff with champions on a live task.",`Prompting and verification clinic for the ${cnt("Verify")} people with a verification gap.`]},
+    {days:"DAYS 61–90",name:"Embed and measure",color:"#1E3A8A",items:["Launch a shared prompt and use-case library.","Managers set one AI goal per person and review it in 1:1s.","Track time saved on three to five priority use cases.","Re-run the assessment and compare by dimension and department."]}
+  ];
+  const rows=scope.slice().sort((a,b)=>b.overall-a.overall);
+  return `<section class="stack">
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end">
+    <div><div class="eyebrow" style="color:var(--accent)">Manager and leadership view</div><h1 class="page">Team AI readiness report</h1></div>
+    ${S.includeSample?`<span class="badge">INCLUDES SAMPLE DATA</span>`:""}</div>
+  ${sourceBar}
+  <div><div id="flt" style="font-size:14px;font-weight:500;color:var(--muted);margin-bottom:10px">Filter by department</div>
+    <div class="chips" role="group" aria-labelledby="flt">${["All"].concat(depts).map(d=>`<button type="button" class="opt chip dark" data-dept="${esc(d)}" aria-pressed="${d===S.teamDept}">${d==="All"?"All departments":esc(d)}</button>`).join("")}</div></div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div class="card kpi"><div class="l">Average readiness</div><div class="v">${avg}</div><div style="font-size:14px;font-weight:500">${levelOf(avg).name}</div></div>
+    <div class="card kpi"><div class="l">Respondents</div><div class="v">${n}</div><div class="l">${S.teamDept==="All"?"all departments":esc(S.teamDept)}</div></div>
+    <div class="card kpi"><div class="l">Ready or above (75+)</div><div class="v">${pct(ready,n)}</div><div class="l">${ready} people</div></div>
+    <div class="card kpi warn"><div class="l">With a critical gap</div><div class="v">${flagged}</div><div class="l">${pct(flagged,n)} of respondents</div></div>
+  </div>
+  <div class="grid wide">
+    <div class="card"><h2>Readiness distribution</h2>${dist.map(x=>`<div class="barrow" style="grid-template-columns:140px minmax(0,1fr) 72px"><div><span style="font-weight:500">${x.l.name}</span><small>${x.l.band}</small></div><div class="track" style="height:22px;border-radius:4px"><span style="width:${n?Math.max(x.c?3:0,x.c/n*100):0}%;background:${x.l.color};border-radius:4px;box-shadow:inset 0 0 0 1px var(--muted)"></span></div><span class="mono" style="text-align:right">${x.c} · ${pct(x.c,n)}</span></div>`).join("")}</div>
+    <div class="card"><h2>Average score by department</h2>${deptRows.map(x=>`<div class="barrow" style="grid-template-columns:160px minmax(0,1fr) 72px"><span style="font-weight:${x.d===S.teamDept?700:400}">${esc(x.d)}</span><div class="track" style="height:14px;border-radius:4px"><span style="width:${x.avg}%;background:${tone(x.avg)};border-radius:4px"></span></div><span class="mono" style="text-align:right">${x.avg} <small style="display:inline;color:var(--muted)">n${x.n}</small></span></div>`).join("")}</div>
+  </div>
+  <div class="grid wide">
+    <div class="card"><h2>Dimension averages <span style="font-size:13px;font-weight:400;color:var(--muted)">· lowest first</span></h2>${dimAvg.map(x=>`<div class="barrow" style="grid-template-columns:190px minmax(0,1fr) 40px"><span style="font-size:15px">${x.dm.name}</span><div class="track"><span style="width:${Math.max(2,x.avg)}%;background:${tone(x.avg)}"></span></div><span class="num">${x.avg}</span></div>`).join("")}${legendRow()}</div>
+    <div class="card"><h2>Highest-risk gaps</h2>${risks.map(x=>`<div class="list-row" style="flex-direction:column;gap:3px"><div style="display:flex;justify-content:space-between;gap:12px"><span style="font-weight:600">${x.f.title}</span><span class="num" style="color:var(--warn)">${x.who.length} people</span></div><span style="font-size:14px;color:var(--muted)">${x.f.rule}</span><span style="font-size:14px;color:var(--ink2)">${x.who.length?x.who.map(p=>p.id).join(", "):"None in this group"}</span></div>`).join("")}</div>
+  </div>
+  <div class="card"><h2>Recommended interventions</h2><div class="grid" style="gap:14px">${low.map((x,i)=>`<div class="tile"><span class="tag">PRIORITY ${i+1}</span><strong>${x.dm.name} · avg ${x.avg}</strong><p>${x.dm.team}</p></div>`).join("")}</div></div>
+  <div class="card"><h2>90-day AI enablement roadmap</h2><div class="grid wide" style="gap:16px">${roadmap.map(ph=>`<div class="phase" style="border-top-color:${ph.color}"><div class="mono" style="font-size:13px;color:var(--muted)">${ph.days}</div><div style="font-weight:600;font-size:17px;margin:4px 0 8px">${ph.name}</div><ul class="clean" style="font-size:14px">${ph.items.map(it=>`<li>${it}</li>`).join("")}</ul></div>`).join("")}</div></div>
+  <div class="card"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px"><h2 style="margin:0">Respondent summary</h2><button class="btn" id="teamdl">Export table (CSV)</button></div>
+    <div class="tbl"><table><thead><tr><th>ID</th><th>Source</th><th>Department</th><th>Role</th><th>Seniority</th><th>AI use</th><th>Score</th><th>Level</th>${DIMS.map(d=>`<th>${d.short}</th>`).join("")}<th>Flags</th></tr></thead><tbody>
+    ${rows.map(p=>`<tr><td class="mono">${esc(p.id)}</td><td>${p.source}</td><td style="white-space:nowrap">${esc(p.dept)}</td><td style="white-space:nowrap">${esc(p.role)}</td><td style="white-space:nowrap">${esc(p.sen)}</td><td>${esc(p.freq)}</td><td class="mono" style="font-weight:600">${p.overall}${p.capped?` <span style="font-weight:400;color:var(--warn-tx)">(capped)</span>`:""}</td><td style="white-space:nowrap">${p.level}</td>${p.dims.map(v=>`<td class="mono ${v<50?"low":""}">${v}</td>`).join("")}<td style="color:var(--warn-tx);white-space:nowrap">${p.flags.join(", ")||"–"}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p style="font-size:13px;color:var(--muted);margin:12px 0 0">Shaded cells are below 50. Scores with a Privacy flag are capped at ${GOV_CAP}. Flags: Privacy = data-handling risk, Access = no approved tool, Verify = verification gap, Reliance = over-reliance risk.</p></div>
+  </section>`;
+}
+function teamCsv(){
+  const {scope}=teamData();
+  const head=["id","source","department","role","seniority","ai_frequency","raw_score","overall","level"].concat(DIMS.map(d=>d.id)).concat(["flags"]);
+  return [head.join(",")].concat(scope.map(p=>[p.id,p.source,p.dept,p.role,p.sen,p.freq,p.raw,p.overall,p.level].concat(p.dims).concat([p.flags.join("; ")]).map(csvCell).join(","))).join("\n");
+}
+
+/* ---------------- Method ---------------- */
+function scoringText(q){
+  if(q.type==="l") return q.rev ? "Reverse: 6 − answer" : "1–5";
+  return q.opts.map(o=>`${o[0]} [${o[1]}]`).join(" · ");
+}
+function viewMethod(){
+  return `<section class="stack">
+  <div class="stack" style="gap:8px"><h1 class="page">How the calculator works</h1><p class="lead">Research basis, the full question bank, the scoring model and spreadsheet formulas, the rollout plan and known limitations.</p></div>
+  <div class="card"><h2>Assumptions</h2><ul class="clean">
+    <li>This is a self-assessment for development planning. It is not a performance rating and should not feed into appraisals.</li>
+    <li>Anonymous mode is the default. Group results should only be shown where 5 or more people respond.</li>
+    <li>Weights are expert judgement based on the sources below. Re-check them against real data after the first round.</li>
+    <li>This page scores answers in the browser. “Save &amp; add to team roster” keeps results only in that browser, which suits a shared workshop device. For organization-wide collection, use the Google Forms and Sheets build below.</li></ul></div>
+  <div class="card"><h2>1 · Research basis</h2><div class="tbl"><table style="min-width:720px"><thead><tr><th>Source</th><th>What it contributes</th><th>Used in</th></tr></thead><tbody>
+    <tr><td><a href="https://www.prosci.com/blog/how-businesses-assess-readiness-for-ai-adoption">Prosci: How businesses assess readiness for AI adoption</a></td><td>Measuring individual readiness with ADKAR before and during an AI rollout.</td><td>Dimension structure</td></tr>
+    <tr><td><a href="https://www.prosci.com/blog/adkar-for-ai-adoption">Prosci: ADKAR for AI adoption</a></td><td>Why AI rollouts stall at the people level; matching interventions to the barrier point.</td><td>Barriers, interventions</td></tr>
+    <tr><td><a href="https://www.oecd.org/en/publications/building-an-ai-ready-public-workforce_b89244c7-en.html">OECD: Building an AI-ready public workforce</a></td><td>Readiness includes risk awareness, data protection, ethics, critical thinking and independent judgement.</td><td>Privacy and responsible AI; confidence without over-reliance</td></tr>
+    <tr><td><a href="https://sloanreview.mit.edu/article/getting-your-employees-ready-for-work-in-the-age-of-ai">MIT SMR: Getting your employees ready for work in the age of AI</a></td><td>Employee capability gaps and the skills needed to work alongside AI.</td><td>Skills, role fit, applying AI</td></tr>
+    <tr><td><a href="https://blogs.microsoft.com/blog/2024/05/08/microsoft-and-linkedin-release-the-2024-work-trend-index-on-the-state-of-ai-at-work/">Microsoft and LinkedIn: 2024 Work Trend Index</a></td><td>Many employees already use AI at work, often with their own tools and without clear guidance or training.</td><td>Access and support; approved-tool flag</td></tr>
+    <tr><td><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a></td><td>Trustworthy-AI properties and human oversight of consequential decisions.</td><td>Responsible-AI scenarios, safety reminders</td></tr>
+  </tbody></table></div></div>
+  <div class="card"><h2>2 · Dimensions and weights</h2><div class="tbl"><table style="min-width:720px"><thead><tr><th>#</th><th>Dimension</th><th>Framework</th><th>Weight</th><th>Items</th><th>Why this weight</th></tr></thead><tbody>
+    ${DIMS.map((d,i)=>`<tr><td class="mono">${i+1}</td><td style="font-weight:500">${d.name}</td><td>${d.basis}</td><td class="mono" style="font-weight:600">${d.w}%</td><td class="mono">${d.qs.length}</td><td style="color:var(--ink2)">${d.rationale}</td></tr>`).join("")}
+  </tbody></table></div></div>
+  <div class="card"><h2>3 · Full question bank (${TOTAL_Q} items)</h2><p style="margin:0 0 12px;color:var(--muted)">Likert items are scored 1–5 (Strongly disagree to Strongly agree). For multiple-choice and scenario items, the points for each option are shown in brackets.</p>
+    <div class="tbl"><table style="min-width:820px"><thead><tr><th>ID</th><th>Dimension</th><th>Type</th><th>Question</th><th>Scoring</th></tr></thead><tbody>
+    ${DIMS.map(d=>d.qs.map(q=>`<tr><td class="mono">${q.id}</td><td style="white-space:nowrap">${d.name}</td><td style="white-space:nowrap">${q.type==="l"?"Likert 1–5"+(q.rev?" · R":""):(q.scenario?"Scenario":"Multiple choice")}</td><td>${esc(q.text)}</td><td style="font-size:13px;color:var(--ink2)">${esc(scoringText(q))}</td></tr>`).join("")).join("")}
+    </tbody></table></div></div>
+  <div class="card"><h2>4 · Scoring model and Google Sheets formulas</h2>
+    <div class="grid" style="margin-bottom:16px">
+      <div class="tile"><strong>Step 1 · Item to 0–100</strong><p>Answer becomes 1–5 (reverse items: 6 − answer). Item score = (value − 1) ÷ 4 × 100.</p></div>
+      <div class="tile"><strong>Step 2 · Dimension score</strong><p>Average of that dimension's item scores, rounded.</p></div>
+      <div class="tile"><strong>Step 3 · Overall</strong><p>Σ (dimension score × weight) ÷ 100.</p></div>
+      <div class="tile"><strong>Step 4 · Governance cap</strong><p>If the data-handling risk flag is raised, the overall score is capped at ${GOV_CAP} (top of AI Aware) until the gap is fixed.</p></div></div>
+    <div class="tbl"><table style="min-width:720px"><thead><tr><th>Purpose</th><th>Formula</th></tr></thead><tbody>
+      <tr><td>Likert text to 1–5</td><td><code>=MATCH(B2,{"Strongly disagree","Disagree","Neutral","Agree","Strongly agree"},0)</code></td></tr>
+      <tr><td>Item score / reverse item</td><td><code>=(C2-1)/4*100</code> · <code>=(5-C2)/4*100</code></td></tr>
+      <tr><td>Multiple-choice points</td><td><code>=VLOOKUP(D2,OptionPoints!A:B,2,FALSE)</code></td></tr>
+      <tr><td>Overall score</td><td><code>=ROUND(SUMPRODUCT(DimScores,Weights)/100,0)</code></td></tr>
+      <tr><td>Governance cap</td><td><code>=IF(PrivacyFlag="Yes",MIN(RawOverall,${GOV_CAP}),RawOverall)</code></td></tr>
+      <tr><td>Readiness level</td><td><code>=IFS(X2&gt;=90,"AI Champion",X2&gt;=75,"AI Confident",X2&gt;=60,"AI Practitioner",X2&gt;=40,"AI Aware",TRUE,"AI Beginner")</code></td></tr>
+      <tr><td>Team average, small groups hidden</td><td><code>=IF(COUNTIF(Dept,"Sales")&lt;5,"n&lt;5",AVERAGEIF(Dept,"Sales",Overall))</code></td></tr>
+    </tbody></table></div></div>
+  <div class="card"><h2>5 · Readiness levels</h2><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+    ${LEVELS.map(l=>`<div class="phase" style="border-top:6px solid ${l.color}"><div class="mono" style="font-size:13px;color:var(--muted)">${l.band} · ${l.label}</div><div style="font-weight:600;font-size:17px">${l.name}</div><p style="margin:4px 0;font-size:14px;color:var(--ink2)">${l.desc}</p><div style="font-size:13px;color:var(--accent);font-weight:500">${l.next}</div></div>`).join("")}</div>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--muted)">Critical flags override the level: someone can score as AI Confident and still need to fix a data-handling risk.</p></div>
+  <div class="card"><h2>6 · Rollout plan</h2><div class="tbl"><table style="min-width:720px"><thead><tr><th>When</th><th>Step</th><th>Exit criterion</th></tr></thead><tbody>
+    <tr><td>Week 0</td><td>Review questions, anonymity and data handling with HR, Legal and Privacy.</td><td>Sign-off; privacy notice written</td></tr>
+    <tr><td>Week 1</td><td>Pilot with 5–8 people from different roles.</td><td>Median time under 7 minutes</td></tr>
+    <tr><td>Week 2</td><td>Fix wording; build the Form, Sheet and dashboard.</td><td>Formulas tested on sample data</td></tr>
+    <tr><td>Weeks 3–4</td><td>Launch with a leadership message: for development, not evaluation.</td><td>Response rate of 70% or more</td></tr>
+    <tr><td>Week 5</td><td>Publish the team report and brief managers.</td><td>Every manager briefed</td></tr>
+    <tr><td>Quarterly</td><td>Re-run and compare trends by dimension and department.</td><td>Trend report to leadership</td></tr>
+  </tbody></table></div></div>
+  <div class="card"><h2>7 · Limitations</h2><ul class="clean">
+    <li><strong>Self-reported answers</strong>: people often over-rate their skills. Add scenario items, a short practical task and an optional manager rating.</li>
+    <li><strong>Weights are expert judgement</strong>: once you have 50+ responses, check consistency (Cronbach's alpha) and re-weight against actual usage.</li>
+    <li><strong>Few items per dimension</strong>: a single answer can swing a score. Rotate in tested items over time.</li>
+    <li><strong>Scenario answers can be learned</strong>: rotate equivalent scenarios each quarter.</li>
+    <li><strong>Small-team anonymity</strong>: enforce the n of 5 or more rule in all team views.</li>
+    <li><strong>Intention, not behaviour</strong>: add tool-usage data and time-saved measures.</li></ul></div>
+  </section>`;
+}
+
+/* ---------------- Render and events ---------------- */
+const app = document.getElementById("app");
+function render(){
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.setAttribute("aria-current", a.dataset.tab===S.tab?"page":"false"));
+  const prog=document.getElementById("progress");
+  prog.style.display = S.tab==="assess" ? "flex" : "none";
+  const answered=Object.keys(S.ans).length;
+  document.getElementById("pbar").style.width = (S.step===11?100:Math.round(answered/TOTAL_Q*100))+"%";
+  document.getElementById("plbl").textContent = S.step===0?"Profile":(S.step===11?"Complete":`${answered} / ${TOTAL_Q} answered`);
+  if(S.tab==="team") app.innerHTML=viewTeam();
+  else if(S.tab==="method") app.innerHTML=viewMethod();
+  else app.innerHTML = S.step===0?viewIntro():(S.step===11?viewResult():viewDim());
+}
+function go(step){ S.step=step; render(); window.scrollTo(0,0); }
+function updateStart(){ const b=document.getElementById("start"); if(b) b.disabled=!profileDone(); }
+
+app.addEventListener("input", e=>{
+  const k=e.target.dataset.p; if(!k) return;
+  S.profile[k]=e.target.value; updateStart();
+});
+app.addEventListener("change", e=>{
+  if(e.target.id==="anon"){ S.profile.anon=e.target.checked; render(); return; }
+  const k=e.target.dataset.p; if(k){ S.profile[k]=e.target.value; updateStart(); }
+});
+app.addEventListener("click", e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.tool){
+    const tool=t.dataset.tool; let list=S.profile.tools.slice();
+    if(list.includes(tool)) list=list.filter(x=>x!==tool);
+    else if(tool==="None yet") list=["None yet"];
+    else { list=list.filter(x=>x!=="None yet"); list.push(tool); }
+    S.profile.tools=list;
+    app.querySelectorAll("[data-tool]").forEach(b=>b.setAttribute("aria-pressed", list.includes(b.dataset.tool)));
+    return;
+  }
+  if(t.dataset.q){
+    S.ans[t.dataset.q]=+t.dataset.k;
+    const y=window.scrollY; render(); window.scrollTo(0,y); return;
+  }
+  if(t.dataset.dept){ S.teamDept=t.dataset.dept; const y=window.scrollY; render(); window.scrollTo(0,y); return; }
+  switch(t.id){
+    case "start": go(1); break;
+    case "sample": fillSample(); render(); window.scrollTo(0,0); break;
+    case "back": go(S.step-1); break;
+    case "next": go(S.step+1); break;
+    case "review": go(1); break;
+    case "restart": S.ans={}; S.profile=emptyProfile(); S.rid=newId(); S.savedMsg=""; go(0); break;
+    case "save": addToRoster(); { const y=window.scrollY; render(); window.scrollTo(0,y); } break;
+    case "toggleSample": S.includeSample=!S.includeSample; render(); break;
+    case "clearRoster": ROSTER=[]; saveRoster(ROSTER); S.savedMsg=""; render(); break;
+    case "dl": download(`ai-readiness-${computeResult().who}.csv`, resultCsv()); break;
+    case "teamdl": download("ai-readiness-team.csv", teamCsv()); break;
+  }
+});
+function fromHash(){ const h=location.hash.replace("#",""); S.tab=["assess","team","method"].includes(h)?h:"assess"; render(); }
+window.addEventListener("hashchange", ()=>{ fromHash(); window.scrollTo(0,0); });
+fromHash();
+</script>
+</body>
+</html>
