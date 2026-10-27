@@ -2,7 +2,8 @@
 
 A single-page web tool that measures how ready employees are to adopt AI in their daily work, and turns the results into personal and team-level action plans.
 
-**Live site:** `https://<your-github-username>.github.io/ai-readiness-calculator/`
+**Live site:** https://sghatge.github.io/ai-readiness-calculator/  
+**Overview:** see [ABOUT.md](ABOUT.md) for what the tool is, who it's for and how to get started.
 
 ## What it does
 
