@@ -108,3 +108,15 @@ Report a bug or suggest an improvement via [GitHub Issues](https://github.com/sg
 ## License
 
 [MIT](LICENSE) © 2026 Sangram ([@sghatge](https://github.com/sghatge)). Bundled qrcode-generator is also MIT-licensed.
+
+
+---
+
+## Portfolio, reproducibility & safe use
+
+- [Sangram Ghatge — complete engineering portfolio](https://github.com/sghatge/sghatge)
+- [OPSFORGE Build Lab](https://sghatge.streamlit.app/) — portfolio index only; this project is documented and maintained in its own repository.
+
+**Reproducibility:** start with the setup and usage instructions in this README and the linked project documentation. Run the repository's available checks before changing behaviour; if no test command is documented, treat that as a validation task rather than assuming tests pass.
+
+**Safe-use boundary:** this is an independent portfolio project. Use synthetic or sanitized examples. Do not treat sample configurations, assessments, checklists or simulated outputs as production approvals or connect the project to customer data or live enterprise systems without independent security, privacy, legal and operational review. Review dependencies, licences and secrets handling before deployment.
