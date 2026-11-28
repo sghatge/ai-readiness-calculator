@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/sghatge/sghatge/main/assets/portfolio/project-banner.svg" width="100%" alt="Sangram Ghatge engineering portfolio banner">
+<img src="assets/portfolio/repo-card.svg" width="520" alt="ai readiness calculator bespoke project visual">
 
 **INDEPENDENT ENGINEERING PORTFOLIO · AI READINESS CALCULATOR**
 
